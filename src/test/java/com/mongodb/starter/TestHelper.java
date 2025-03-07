@@ -1,9 +1,10 @@
 package com.mongodb.starter;
 
 import com.mongodb.starter.dtos.PersonDTO;
-import com.mongodb.starter.models.AddressEntity;
-import com.mongodb.starter.models.CarEntity;
-import com.mongodb.starter.models.PersonEntity;
+import com.mongodb.starter.entity.AddressEntity;
+import com.mongodb.starter.entity.CarEntity;
+import com.mongodb.starter.entity.PersonEntity;
+
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Component;
 

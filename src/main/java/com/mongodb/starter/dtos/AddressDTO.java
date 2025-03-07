@@ -1,6 +1,6 @@
 package com.mongodb.starter.dtos;
 
-import com.mongodb.starter.models.AddressEntity;
+import com.mongodb.starter.entity.AddressEntity;
 
 public record AddressDTO(int number, String street, String postcode, String city, String country) {
 

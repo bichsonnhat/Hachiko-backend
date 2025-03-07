@@ -1,7 +1,9 @@
-package com.mongodb.starter.services;
+package com.mongodb.starter.usecases.implement;
 
 import com.mongodb.starter.dtos.PersonDTO;
-import com.mongodb.starter.repositories.PersonRepository;
+import com.mongodb.starter.repositories.interfaces.PersonRepository;
+import com.mongodb.starter.usecases.interfaces.PersonService;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;

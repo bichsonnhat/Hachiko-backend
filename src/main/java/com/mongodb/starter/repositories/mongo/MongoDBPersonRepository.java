@@ -1,4 +1,4 @@
-package com.mongodb.starter.repositories;
+package com.mongodb.starter.repositories.mongo;
 
 import com.mongodb.ReadConcern;
 import com.mongodb.ReadPreference;
@@ -10,7 +10,9 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.FindOneAndReplaceOptions;
 import com.mongodb.client.model.ReplaceOneModel;
 import com.mongodb.starter.dtos.AverageAgeDTO;
-import com.mongodb.starter.models.PersonEntity;
+import com.mongodb.starter.entity.PersonEntity;
+import com.mongodb.starter.repositories.interfaces.PersonRepository;
+
 import jakarta.annotation.PostConstruct;
 import org.bson.BsonDocument;
 import org.bson.BsonNull;
@@ -39,6 +41,8 @@ public class MongoDBPersonRepository implements PersonRepository {
                                                                            .build();
     private final MongoClient client;
     private MongoCollection<PersonEntity> personCollection;
+    private final String DATABASE_NAME = "Hachiko";
+    private final String COLLECTION_NAME = "persons";
 
     public MongoDBPersonRepository(MongoClient mongoClient) {
         this.client = mongoClient;
@@ -46,7 +50,7 @@ public class MongoDBPersonRepository implements PersonRepository {
 
     @PostConstruct
     void init() {
-        personCollection = client.getDatabase("test").getCollection("persons", PersonEntity.class);
+        personCollection = client.getDatabase(DATABASE_NAME).getCollection(COLLECTION_NAME, PersonEntity.class);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.mongodb.starter.models;
+package com.mongodb.starter.entity;
 
 import java.util.Objects;
 

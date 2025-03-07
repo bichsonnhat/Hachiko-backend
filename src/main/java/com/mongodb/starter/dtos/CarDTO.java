@@ -1,6 +1,6 @@
 package com.mongodb.starter.dtos;
 
-import com.mongodb.starter.models.CarEntity;
+import com.mongodb.starter.entity.CarEntity;
 
 public record CarDTO(String brand, String model, Float maxSpeedKmH) {
 

@@ -1,4 +1,4 @@
-package com.mongodb.starter.services;
+package com.mongodb.starter.usecases.interfaces;
 
 
 import com.mongodb.starter.dtos.PersonDTO;

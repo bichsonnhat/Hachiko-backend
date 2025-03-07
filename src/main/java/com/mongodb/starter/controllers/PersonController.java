@@ -1,7 +1,8 @@
 package com.mongodb.starter.controllers;
 
 import com.mongodb.starter.dtos.PersonDTO;
-import com.mongodb.starter.services.PersonService;
+import com.mongodb.starter.usecases.interfaces.PersonService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

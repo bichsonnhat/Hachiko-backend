@@ -1,7 +1,8 @@
-package com.mongodb.starter.repositories;
+package com.mongodb.starter.repositories.interfaces;
 
-import com.mongodb.starter.models.PersonEntity;
 import org.springframework.stereotype.Repository;
+
+import com.mongodb.starter.entity.PersonEntity;
 
 import java.util.List;
 

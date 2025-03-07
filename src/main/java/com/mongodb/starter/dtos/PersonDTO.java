@@ -1,7 +1,8 @@
 package com.mongodb.starter.dtos;
 
-import com.mongodb.starter.models.PersonEntity;
 import org.bson.types.ObjectId;
+
+import com.mongodb.starter.entity.PersonEntity;
 
 import java.util.Date;
 import java.util.List;
