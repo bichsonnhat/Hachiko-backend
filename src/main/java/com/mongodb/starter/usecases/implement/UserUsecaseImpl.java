@@ -19,6 +19,6 @@ public class UserUsecaseImpl implements UserUsecase {
 
     @Override
     public UserEntity createUser(UserEntity userEntity) {
-        return userRepository.createUser(userEntity);
+        return userRepository.insertOne(userEntity);
     }
 }

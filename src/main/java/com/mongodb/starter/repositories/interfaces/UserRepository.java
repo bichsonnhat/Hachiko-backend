@@ -7,5 +7,5 @@ import com.mongodb.starter.entity.UserEntity;
 
 @Repository
 public interface UserRepository {
-    UserEntity createUser(UserEntity userEntity);
+    UserEntity insertOne(UserEntity userEntity);
 }

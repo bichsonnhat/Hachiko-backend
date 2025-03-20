@@ -37,9 +37,9 @@ public class MongoDBUserRepository implements UserRepository {
     }
 
     @Override
-    public UserEntity createUser(UserEntity userEntity) {
-        userEntity.setId(new ObjectId());
-        // userCollection.insertOne(userEntity);
+    public UserEntity insertOne(UserEntity userEntity) {
+        // userEntity.setId(new ObjectId());
+        userCollection.insertOne(userEntity);
         return userEntity;
     }
 }
