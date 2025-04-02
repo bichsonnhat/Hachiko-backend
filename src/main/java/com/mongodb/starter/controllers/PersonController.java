@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
 public class PersonController {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(PersonController.class);
@@ -42,7 +41,8 @@ public class PersonController {
     @GetMapping("person/{id}")
     public ResponseEntity<PersonDTO> getPerson(@PathVariable String id) {
         PersonDTO PersonDTO = personService.findOne(id);
-        if (PersonDTO == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        if (PersonDTO == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         return ResponseEntity.ok(PersonDTO);
     }
 
