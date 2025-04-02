@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,6 +21,7 @@ import com.mongodb.starter.entity.AdvertisementEntity;
 import com.mongodb.starter.usecases.interfaces.AdvertisementUsecase;
 
 @RestController
+@RequestMapping("advertisement")
 public class Advertisement {
     
     private final static Logger LOGGER = LoggerFactory.getLogger(Advertisement.class);
@@ -29,31 +31,31 @@ public class Advertisement {
         this.advertisementUsecase = advertisementUsecase;
     }
 
-    @PostMapping("create")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public AdvertisementEntity createAdvertisement(@RequestBody AdvertisementDTO advertisementDTO) {
         return advertisementUsecase.createAdvertisement(advertisementDTO.toAdvertisementEntity());
     }
 
-    @GetMapping("get")
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<AdvertisementEntity> getCategories() {
         return advertisementUsecase.getAdvertisements();
     }
 
-    @GetMapping("get/{id}")
+    @GetMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
     public AdvertisementEntity getCategory(@PathVariable String id) {
         return advertisementUsecase.getAdvertisement(id);
     }
 
-    @PutMapping("update")
+    @PutMapping
     @ResponseStatus(HttpStatus.OK)
     public AdvertisementEntity updateCategory(@RequestBody AdvertisementDTO advertisementDTO) {
         return advertisementUsecase.updateAdvertisement(advertisementDTO.toAdvertisementEntity());
     }
 
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCategory(@PathVariable String id) {
         advertisementUsecase.deleteAdvertisement(id);

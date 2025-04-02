@@ -14,15 +14,15 @@ import static com.mongodb.client.model.Filters.eq;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.FindOneAndReplaceOptions;
-import com.mongodb.starter.entity.AdvertisementEntity;
-import com.mongodb.starter.repositories.interfaces.AdvertisementRepository;
+import com.mongodb.starter.entity.NotificationEntity;
+import com.mongodb.starter.repositories.interfaces.NotificationRepository;
 
 import static com.mongodb.client.model.ReturnDocument.AFTER;
 
 import jakarta.annotation.PostConstruct;
 
 @Repository
-public class MongoDBAdvertisementRepository implements AdvertisementRepository {
+public class MongoDBNotificationRepository implements NotificationRepository {
     // private static final TransactionOptions txnOptions = TransactionOptions.builder()
     //         .readPreference(ReadPreference.primary())
     //         .readConcern(ReadConcern.MAJORITY)
@@ -30,43 +30,48 @@ public class MongoDBAdvertisementRepository implements AdvertisementRepository {
     //         .build();
 
     private final MongoClient client;
-    private MongoCollection<AdvertisementEntity> advertisementCollection;
+    private MongoCollection<NotificationEntity> notificationCollection;
     private final String DATABASE_NAME = "Hachiko";
-    private final String COLLECTION_NAME = "advertisements";
+    private final String COLLECTION_NAME = "notifications";
 
-    public MongoDBAdvertisementRepository(MongoClient mongoClient) {
+    public MongoDBNotificationRepository(MongoClient mongoClient) {
         this.client = mongoClient;
     }
 
     @PostConstruct
     void init() {
-        advertisementCollection = client.getDatabase(DATABASE_NAME).getCollection(COLLECTION_NAME, AdvertisementEntity.class);
+        notificationCollection = client.getDatabase(DATABASE_NAME)
+                                    .getCollection(COLLECTION_NAME, NotificationEntity.class);
     }
 
     @Override
-    public AdvertisementEntity insertOne(AdvertisementEntity advertisementEntity){
-        advertisementCollection.insertOne(advertisementEntity);
-        return advertisementEntity;
+    public NotificationEntity insertOne(NotificationEntity notificationEntity) {
+        notificationCollection.insertOne(notificationEntity);
+        return notificationEntity;
     }
 
     @Override
-    public List<AdvertisementEntity> findAll() {
-        return advertisementCollection.find().into(new ArrayList<>());
+    public List<NotificationEntity> findAll() {
+        return notificationCollection.find().into(new ArrayList<>());
     }
 
     @Override
-    public AdvertisementEntity findOne(String id) {
-        return advertisementCollection.find(eq("_id", new ObjectId(id))).first();
+    public NotificationEntity findOne(String id) {
+        return notificationCollection.find(eq("_id", new ObjectId(id))).first();
     }
 
     @Override
-    public AdvertisementEntity updateOne(AdvertisementEntity entity) {
+    public NotificationEntity updateOne(NotificationEntity entity) {
         FindOneAndReplaceOptions options = new FindOneAndReplaceOptions().returnDocument(AFTER);
-        return advertisementCollection.findOneAndReplace(eq("_id", entity.getId()), entity, options);
+        return notificationCollection.findOneAndReplace(
+            eq("_id", entity.getId()), 
+            entity, 
+            options
+        );
     }
 
     @Override
     public void deleteOne(String id) {
-        advertisementCollection.deleteOne(eq("_id", new ObjectId(id)));
+        notificationCollection.deleteOne(eq("_id", new ObjectId(id)));
     }
 }

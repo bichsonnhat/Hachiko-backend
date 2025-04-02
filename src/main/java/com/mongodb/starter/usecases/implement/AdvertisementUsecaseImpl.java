@@ -2,10 +2,13 @@ package com.mongodb.starter.usecases.implement;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.mongodb.starter.entity.AdvertisementEntity;
 import com.mongodb.starter.repositories.interfaces.AdvertisementRepository;
 import com.mongodb.starter.usecases.interfaces.AdvertisementUsecase;
 
+@Service
 public class AdvertisementUsecaseImpl implements AdvertisementUsecase {
     private final AdvertisementRepository advertisementRepository;
     
