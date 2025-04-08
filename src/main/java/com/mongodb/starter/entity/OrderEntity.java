@@ -13,8 +13,8 @@ public class OrderEntity {
     private String paymentMethod;
     private Double orderCost;
     private ObjectId voucherId;
-    private String recipentName;
-    private String recipentPhone;
+    private String recipientName;
+    private String recipientPhone;
     private ObjectId storeId;
     private String orderStatus;
     private Date createdAt;
@@ -23,7 +23,7 @@ public class OrderEntity {
     }
 
     public OrderEntity(ObjectId id, ObjectId userId, String orderAddress, Date orderTime, String paymentMethod,
-            Double orderCost, ObjectId voucherId, String recipentName, String recipentPhone, ObjectId storeId,
+            Double orderCost, ObjectId voucherId, String recipientName, String recipientPhone, ObjectId storeId,
             String orderStatus, Date createdAt) {
         this.id = id;
         this.userId = userId;
@@ -32,8 +32,8 @@ public class OrderEntity {
         this.paymentMethod = paymentMethod;
         this.orderCost = orderCost;
         this.voucherId = voucherId;
-        this.recipentName = recipentName;
-        this.recipentPhone = recipentPhone;
+        this.recipientName = recipientName;
+        this.recipientPhone = recipientPhone;
         this.storeId = storeId;
         this.orderStatus = orderStatus;
         this.createdAt = createdAt;
@@ -95,20 +95,20 @@ public class OrderEntity {
         this.voucherId = voucherId;
     }
 
-    public String getRecipentName() {
-        return recipentName;
+    public String getRecipientName() {
+        return recipientName;
     }
 
-    public void setRecipentName(String recipentName) {
-        this.recipentName = recipentName;
+    public void setRecipientName(String recipientName) {
+        this.recipientName = recipientName;
     }
 
-    public String getRecipentPhone() {
-        return recipentPhone;
+    public String getRecipientPhone() {
+        return recipientPhone;
     }
 
-    public void setRecipentPhone(String recipentPhone) {
-        this.recipentPhone = recipentPhone;
+    public void setRecipientPhone(String recipientPhone) {
+        this.recipientPhone = recipientPhone;
     }
 
     public ObjectId getStoreId() {
@@ -139,13 +139,13 @@ public class OrderEntity {
     public String toString() {
         return "OrderEntity [id=" + id + ", userId=" + userId + ", orderAddress=" + orderAddress + ", orderTime="
                 + orderTime + ", paymentMethod=" + paymentMethod + ", orderCost=" + orderCost + ", voucherId="
-                + voucherId + ", recipentName=" + recipentName + ", recipentPhone=" + recipentPhone + ", storeId="
+                + voucherId + ", recipientName=" + recipientName + ", recipientPhone=" + recipientPhone + ", storeId="
                 + storeId + ", orderStatus=" + orderStatus + ", createdAt=" + createdAt + "]";
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userId, orderAddress, orderTime, paymentMethod, orderCost, voucherId, recipentName,
-                recipentPhone, storeId, orderStatus, createdAt);
+        return Objects.hash(id, userId, orderAddress, orderTime, paymentMethod, orderCost, voucherId, recipientName,
+                recipientPhone, storeId, orderStatus, createdAt);
     }
 }

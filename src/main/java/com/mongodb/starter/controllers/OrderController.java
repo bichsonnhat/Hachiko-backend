@@ -33,15 +33,15 @@ public class OrderController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<OrderResponseDTO> getAllOrders() {
+    public List<OrderEntity> getAllOrders() {
         return orderUsecase.getOrders();
     }
 
-    @GetMapping("/customer/{customerId}")
+    @GetMapping("/customer/{userId}")
     @ResponseStatus(HttpStatus.OK)
-    public List<OrderResponseDTO> getOrdersByCustomerId(@PathVariable String customerId) {
-        LOGGER.info("Get orders by customer id: {}", customerId);
-        return orderUsecase.getOrdersByCustomerId(customerId);
+    public List<OrderResponseDTO> getOrdersByUserId(@PathVariable String userId) {
+        LOGGER.info("Get orders by userId id: {}", userId);
+        return orderUsecase.getOrdersByCustomerId(userId);
     }
 
     @GetMapping("/{id}")

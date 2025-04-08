@@ -24,6 +24,7 @@ public class OrderUsecaseImpl implements OrderUsecase {
     @Override
     public OrderResponseDTO createOrder(OrderEntity orderEntity, List<OrderItemEntity> orderItemEntities) {
         OrderEntity createdOrder = orderRepository.insertOne(orderEntity);
+        orderItemEntities.forEach(orderItemEntity -> orderItemEntity.setOrderId(createdOrder.getId()));
         List<OrderItemEntity> createdOrderItems = orderItemRepository.bulkInsert(orderItemEntities);
         return new OrderResponseDTO(createdOrder, createdOrderItems);
     }
@@ -47,12 +48,13 @@ public class OrderUsecaseImpl implements OrderUsecase {
     }
 
     @Override
-    public List<OrderResponseDTO> getOrdersByCustomerId(String customerId) {
-        List<OrderEntity> orders = orderRepository.findAllByCustomerId(customerId);
-        return orders.stream()
-                .map(order -> new OrderResponseDTO(order,
-                        orderItemRepository.findAllByOrderId(order.getId().toHexString())))
-                .toList();
+    public List<OrderResponseDTO> getOrdersByCustomerId(String userId) {
+        List<OrderEntity> orders = orderRepository.findAllByUserId(userId);
+        List<OrderResponseDTO> orderResponseDTOs = orders.stream().map(order -> {
+            List<OrderItemEntity> orderItemEntities = orderItemRepository.findAllByOrderId(order.getId().toHexString());
+            return new OrderResponseDTO(order, orderItemEntities);
+        }).toList();
+        return orderResponseDTOs;
     }
 
     @Override

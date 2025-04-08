@@ -71,8 +71,7 @@ public class MongoDBOrderRepository implements OrderRepository {
     }
 
     @Override
-    public List<OrderEntity> findAllByCustomerId(String customerId) {
-        return orderCollection.find(eq("customerId", customerId)).into(new java.util.ArrayList<>());
+    public List<OrderEntity> findAllByUserId(String userId) {
+        return orderCollection.find(eq("userId", new ObjectId(userId))).into(new java.util.ArrayList<>());
     }
-
 }

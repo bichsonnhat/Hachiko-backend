@@ -18,5 +18,5 @@ public interface OrderRepository {
 
     List<OrderEntity> findAll();
 
-    List<OrderEntity> findAllByCustomerId(String customerId);
+    List<OrderEntity> findAllByUserId(String customerId);
 }

@@ -14,8 +14,8 @@ public record OrderDTO(
         String paymentMethod,
         Double orderCost,
         String voucherId,
-        String recipentName,
-        String recipentPhone,
+        String recipientName,
+        String recipientPhone,
         String storeId,
         String orderStatus,
         Date createdAt) {
@@ -25,7 +25,7 @@ public record OrderDTO(
                 orderEntity.getOrderAddress(), orderEntity.getOrderTime(), orderEntity.getPaymentMethod(),
                 orderEntity.getOrderCost(),
                 orderEntity.getVoucherId() == null ? null : orderEntity.getVoucherId().toHexString(),
-                orderEntity.getRecipentName(), orderEntity.getRecipentPhone(),
+                orderEntity.getRecipientName(), orderEntity.getRecipientPhone(),
                 orderEntity.getStoreId() == null ? null : orderEntity.getStoreId().toHexString(),
                 orderEntity.getOrderStatus(), orderEntity.getCreatedAt());
     }
@@ -33,7 +33,7 @@ public record OrderDTO(
     public OrderEntity toOrderEntity() {
         return new OrderEntity(id == null ? null : new ObjectId(id),
                 userId == null ? null : new ObjectId(userId), orderAddress, orderTime, paymentMethod,
-                orderCost, voucherId == null ? null : new ObjectId(voucherId), recipentName,
-                recipentPhone, storeId == null ? null : new ObjectId(storeId), orderStatus, createdAt);
+                orderCost, voucherId == null ? null : new ObjectId(voucherId), recipientName,
+                recipientPhone, storeId == null ? null : new ObjectId(storeId), orderStatus, createdAt);
     }
 }
