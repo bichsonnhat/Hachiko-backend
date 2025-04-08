@@ -24,7 +24,7 @@ import com.mongodb.starter.usecases.interfaces.OrderUsecase;
 @RestController
 @RequestMapping("/orders")
 public class OrderController {
-    private final static Logger LOGGER = LoggerFactory.getLogger(NotificationController.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
     private final OrderUsecase orderUsecase;
 
     public OrderController(OrderUsecase orderUsecase) {
