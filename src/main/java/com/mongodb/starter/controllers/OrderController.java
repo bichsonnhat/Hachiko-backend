@@ -1,6 +1,8 @@
 package com.mongodb.starter.controllers;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,10 +18,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.mongodb.starter.dtos.OrderRequestDTO;
 import com.mongodb.starter.dtos.OrderResponseDTO;
 import com.mongodb.starter.entity.OrderEntity;
+import com.mongodb.starter.type.CreatePaymentLinkRequestBody;
 import com.mongodb.starter.usecases.interfaces.OrderUsecase;
+
+import vn.payos.PayOS;
+import vn.payos.type.CheckoutResponseData;
+import vn.payos.type.ItemData;
+import vn.payos.type.PaymentData;
 
 @RestController
 @RequestMapping("/orders")
@@ -27,7 +37,11 @@ public class OrderController {
     private final static Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
     private final OrderUsecase orderUsecase;
 
-    public OrderController(OrderUsecase orderUsecase) {
+    private final PayOS payOS;
+
+    public OrderController(PayOS payOS, OrderUsecase orderUsecase) {
+        super();
+        this.payOS = payOS;
         this.orderUsecase = orderUsecase;
     }
 
@@ -79,5 +93,60 @@ public class OrderController {
     public final Exception handleAllExceptions(RuntimeException e) {
         LOGGER.error("Internal server error.", e);
         return e;
+    }
+
+    @PostMapping(path = "/payos/create")
+    public ObjectNode createPaymentLink(@RequestBody CreatePaymentLinkRequestBody RequestBody) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectNode response = objectMapper.createObjectNode();
+        try {
+            final String productName = RequestBody.getProductName();
+            final String description = RequestBody.getDescription();
+            final String returnUrl = RequestBody.getReturnUrl();
+            final String cancelUrl = RequestBody.getCancelUrl();
+            final int price = RequestBody.getPrice();
+            // Gen order code
+            String currentTimeString = String.valueOf(String.valueOf(new Date().getTime()));
+            long orderCode = Long.parseLong(currentTimeString.substring(currentTimeString.length() - 6));
+
+            ItemData item = ItemData.builder().name(productName).price(price).quantity(1).build();
+
+            PaymentData paymentData = PaymentData.builder().orderCode(orderCode).description(description).amount(price)
+                    .item(item).returnUrl(returnUrl).cancelUrl(cancelUrl).build();
+
+            CheckoutResponseData data = payOS.createPaymentLink(paymentData);
+
+            response.put("error", 0);
+            response.put("message", "success");
+            response.set("data", objectMapper.valueToTree(data));
+            return response;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.put("error", -1);
+            response.put("message", "fail");
+            response.set("data", null);
+            return response;
+
+        }
+    }
+
+    @PostMapping(path = "/confirm-webhook")
+    public ObjectNode confirmWebhook(@RequestBody Map<String, String> requestBody) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectNode response = objectMapper.createObjectNode();
+        try {
+            String str = payOS.confirmWebhook(requestBody.get("webhookUrl"));
+            response.set("data", objectMapper.valueToTree(str));
+            response.put("error", 0);
+            response.put("message", "ok");
+            return response;
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.put("error", -1);
+            response.put("message", e.getMessage());
+            response.set("data", null);
+            return response;
+        }
     }
 }
