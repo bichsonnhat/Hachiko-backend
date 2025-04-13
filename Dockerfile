@@ -1,14 +1,22 @@
-# Use a compatible base image for Java 17
-FROM eclipse-temurin:17-jdk
+# ========== Step 1: Build ==========
+FROM maven:3.9.3-eclipse-temurin-17 AS builder
 
-# Set the working directory in the container
 WORKDIR /app
 
-# Copy the built JAR file to the container
-COPY target/java-spring-boot-mongodb-*.jar app.jar
+# Copy all source code
+COPY . .
 
-# Expose the port your app runs on (optional)
+# Build the app and package the jar
+RUN mvn clean package -DskipTests
+
+# ========== Step 2: Run ==========
+FROM eclipse-temurin:17-jdk
+
+WORKDIR /app
+
+# Copy jar from the build stage
+COPY --from=builder /app/target/*.jar app.jar
+
 EXPOSE 8080
 
-# Start the Spring Boot app
 ENTRYPOINT ["java", "-jar", "app.jar"]
