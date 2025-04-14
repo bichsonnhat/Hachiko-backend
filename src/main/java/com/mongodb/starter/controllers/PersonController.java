@@ -20,7 +20,6 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/persons")
 @Tag(name = "persons", description = "An example for Swagger documentation")
 @SecurityScheme(
     name = "api_key",

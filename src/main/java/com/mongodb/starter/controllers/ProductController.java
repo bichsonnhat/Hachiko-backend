@@ -20,7 +20,7 @@ import com.mongodb.starter.usecases.interfaces.ProductUsecase;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 @RestController 
-@RequestMapping("/api/products")
+@RequestMapping("/products")
 @Tag(name = "products")
 @SecurityScheme(
     name = "api_key",

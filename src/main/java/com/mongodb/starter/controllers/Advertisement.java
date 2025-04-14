@@ -18,7 +18,7 @@ import com.mongodb.starter.usecases.interfaces.AdvertisementUsecase;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 @RestController
-@RequestMapping("/api/advertisements")
+@RequestMapping("/advertisements")
 @Tag(name = "advertisements")
 @SecurityScheme(
     name = "api_key",

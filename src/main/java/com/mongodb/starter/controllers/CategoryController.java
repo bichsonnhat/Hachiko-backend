@@ -19,7 +19,7 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 
 @RestController
-@RequestMapping("/api/categories")
+@RequestMapping("/categories")
 @Tag(name = "categories")
 @SecurityScheme(
     name = "api_key",

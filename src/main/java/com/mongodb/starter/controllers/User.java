@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/users")
 @Tag(name = "users")
 @SecurityScheme(
     name = "api_key",
@@ -60,12 +60,12 @@ public class User {
     })
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public UserEntity createUser(
+    public UserDTO createUser(
             @Parameter(description = "User information for account creation",
                       required = true)
             @RequestBody UserDTO userDTO) {
-        return userUsecase.createUser(userDTO.toUserEntity());
-    }
+        return new UserDTO(userUsecase.createUser(userDTO.toUserEntity()));
+    }   
 
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

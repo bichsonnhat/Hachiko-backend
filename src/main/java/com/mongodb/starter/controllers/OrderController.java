@@ -31,7 +31,7 @@ import vn.payos.type.ItemData;
 import vn.payos.type.PaymentData;
 
 @RestController
-@RequestMapping("/api/orders")
+@RequestMapping("/orders")
 @Tag(name = "orders")
 @SecurityScheme(
     name = "api_key",

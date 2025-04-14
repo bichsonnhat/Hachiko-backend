@@ -116,6 +116,17 @@ public class UserEntity {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserEntity userEntity = (UserEntity) o;
+        return Objects.equals(id, userEntity.id) && Objects.equals(firstName,userEntity.firstName) 
+        && Objects.equals(lastName, userEntity.lastName) && Objects.equals(birthDate, userEntity.birthDate) 
+        && Objects.equals(email, userEntity.email) && Objects.equals(phoneNumber, userEntity.phoneNumber) 
+        && Objects.equals(gender, userEntity.gender) && Objects.equals(isAdmin, userEntity.isAdmin);
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(id, firstName, lastName, birthDate, email, phoneNumber, gender, isAdmin);
     }

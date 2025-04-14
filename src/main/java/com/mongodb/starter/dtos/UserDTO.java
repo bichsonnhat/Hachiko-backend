@@ -5,7 +5,6 @@ import org.bson.types.ObjectId;
 import com.mongodb.starter.entity.UserEntity;
 
 import java.util.Date;
-import java.util.List;
 
 public record UserDTO(
         String id,
