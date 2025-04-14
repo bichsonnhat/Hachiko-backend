@@ -14,4 +14,6 @@ public interface ProductUsecase  {
     ProductEntity updateProduct(ProductEntity entity);
 
     void deleteProduct(String id);
+
+    List<ProductEntity> getProductsByCategory(String id);
 }

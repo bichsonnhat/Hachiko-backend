@@ -40,4 +40,9 @@ public class ProductUsecaseImpl implements ProductUsecase {
     public void deleteProduct(String id) {
         productRepository.deleteOne(id);
     }
+
+    @Override
+    public List<ProductEntity> getProductsByCategory(String id) {
+        return productRepository.findByCategory(id);
+    }
 }

@@ -43,9 +43,13 @@ public class ProductController {
     @ApiResponse(responseCode = "200", description = "Successfully retrieved all products")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<ProductEntity> getAllProducts() {
-        return productUsecase.getAllProducts();
+    public List<ProductEntity> getProducts(@RequestParam(value = "category_id", required = false) String categoryId) {
+    if (categoryId != null && !categoryId.isEmpty()) {
+        return productUsecase.getProductsByCategory(categoryId);
     }
+    return productUsecase.getAllProducts();
+    }
+
 
     @Operation(summary = "Get product by ID",
                description = "Retrieves a specific product using its ID",

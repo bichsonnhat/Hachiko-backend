@@ -18,4 +18,6 @@ public interface ProductRepository {
     ProductEntity findOne(String id);
     
     ProductEntity updateOne(ProductEntity entity);
+
+    List<ProductEntity> findByCategory(String id);
 }

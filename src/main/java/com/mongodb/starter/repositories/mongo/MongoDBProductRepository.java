@@ -65,4 +65,9 @@ public class MongoDBProductRepository implements ProductRepository {
     public void deleteOne(String id) {
         productCollection.deleteOne(eq("_id", new ObjectId(id)));
     }
+
+    @Override
+    public List<ProductEntity> findByCategory(String id) {
+        return productCollection.find(eq("categoryID", new ObjectId(id))).into(new ArrayList<>());
+    }
 }
