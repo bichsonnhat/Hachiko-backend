@@ -2,6 +2,7 @@ package com.mongodb.starter.repositories.interfaces;
 
 import java.util.List;
 
+import org.bson.Document;
 import org.springframework.stereotype.Repository;
 
 import com.mongodb.starter.entity.ProductEntity;
@@ -20,4 +21,6 @@ public interface ProductRepository {
     ProductEntity updateOne(ProductEntity entity);
 
     List<ProductEntity> findByCategory(String id);
+
+    List<Document> findAllGroupedByCategoryAggregation();
 }

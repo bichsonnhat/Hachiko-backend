@@ -1,6 +1,8 @@
 package com.mongodb.starter.usecases.implement;
 
 import java.util.List;
+
+import org.bson.Document;
 import org.springframework.stereotype.Service;
 
 import com.mongodb.starter.entity.ProductEntity;
@@ -44,5 +46,10 @@ public class ProductUsecaseImpl implements ProductUsecase {
     @Override
     public List<ProductEntity> getProductsByCategory(String id) {
         return productRepository.findByCategory(id);
+    }
+
+    @Override
+    public List<Document> getAllGroupedByCategoryAggregation() {
+        return productRepository.findAllGroupedByCategoryAggregation();
     }
 }

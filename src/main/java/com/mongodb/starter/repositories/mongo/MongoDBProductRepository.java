@@ -1,14 +1,17 @@
 package com.mongodb.starter.repositories.mongo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Repository;
 import static com.mongodb.client.model.Filters.eq;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
+import org.bson.Document;
+import com.mongodb.client.model.Accumulators;
+import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.FindOneAndReplaceOptions;
 import com.mongodb.starter.entity.ProductEntity;
 import com.mongodb.starter.repositories.interfaces.ProductRepository;
@@ -34,6 +37,7 @@ public class MongoDBProductRepository implements ProductRepository {
         productCollection = client.getDatabase(DATABASE_NAME)
                                 .getCollection(COLLECTION_NAME, ProductEntity.class);
     }
+
 
     @Override
     public ProductEntity insertOne(ProductEntity productEntity) {
@@ -69,5 +73,13 @@ public class MongoDBProductRepository implements ProductRepository {
     @Override
     public List<ProductEntity> findByCategory(String id) {
         return productCollection.find(eq("categoryID", new ObjectId(id))).into(new ArrayList<>());
+    }
+
+    @Override
+    public List<Document> findAllGroupedByCategoryAggregation() {
+        return productCollection.aggregate(Arrays.asList(
+            Aggregates.group("$categoryID", 
+                Accumulators.push("products", "$$ROOT"))
+        ), Document.class).into(new ArrayList<>());
     }
 }

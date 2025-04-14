@@ -2,6 +2,7 @@ package com.mongodb.starter.controllers;
 
 import java.util.List;
 
+import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -114,6 +115,17 @@ public class ProductController {
             @Parameter(description = "ID of the product to delete")
             @PathVariable String id) {
         productUsecase.deleteProduct(id);
+    }
+
+    @Operation(summary = "Get products grouped by category",
+               description = "Retrieves a list of all products grouped by category",
+               security = { @SecurityRequirement(name = "api_key") }
+               )
+    @ApiResponse(responseCode = "200", description = "Successfully retrieved products grouped by category")
+    @GetMapping("/grouped-by-category")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Document> getProductsGroupedByCategory() {
+        return productUsecase.getAllGroupedByCategoryAggregation();
     }
 
     @ExceptionHandler(RuntimeException.class)

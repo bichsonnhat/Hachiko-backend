@@ -2,6 +2,8 @@ package com.mongodb.starter.usecases.interfaces;
 
 import java.util.List;
 
+import org.bson.Document;
+
 import com.mongodb.starter.entity.ProductEntity;
 
 public interface ProductUsecase  {
@@ -16,4 +18,6 @@ public interface ProductUsecase  {
     void deleteProduct(String id);
 
     List<ProductEntity> getProductsByCategory(String id);
+
+    List<Document> getAllGroupedByCategoryAggregation();
 }
