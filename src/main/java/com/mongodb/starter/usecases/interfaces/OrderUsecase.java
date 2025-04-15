@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.mongodb.starter.dtos.OrderDTO;
 import com.mongodb.starter.dtos.OrderResponseDTO;
 import com.mongodb.starter.entity.OrderEntity;
 import com.mongodb.starter.entity.OrderItemEntity;
@@ -14,7 +15,7 @@ public interface OrderUsecase {
 
     void deleteOrder(String id);
 
-    List<OrderEntity> getOrders();
+    List<OrderDTO> getOrders();
 
     OrderResponseDTO getOrder(String id);
 

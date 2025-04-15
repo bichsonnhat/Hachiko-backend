@@ -8,10 +8,6 @@ import java.util.List;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Repository;
 
-import com.mongodb.ReadConcern;
-import com.mongodb.ReadPreference;
-import com.mongodb.TransactionOptions;
-import com.mongodb.WriteConcern;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.FindOneAndReplaceOptions;
@@ -24,11 +20,6 @@ import jakarta.annotation.PostConstruct;
 
 @Repository
 public class MongoDBCategoryRepository implements CategoryRepository {
-    private static final TransactionOptions txnOptions = TransactionOptions.builder()
-            .readPreference(ReadPreference.primary())
-            .readConcern(ReadConcern.MAJORITY)
-            .writeConcern(WriteConcern.MAJORITY)
-            .build();
     private final MongoClient client;
     private MongoCollection<CategoryEntity> categoryCollection;
     private final String DATABASE_NAME = "Hachiko";

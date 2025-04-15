@@ -6,10 +6,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.mongodb.ReadConcern;
-import com.mongodb.ReadPreference;
-import com.mongodb.TransactionOptions;
-import com.mongodb.WriteConcern;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.FindOneAndReplaceOptions;
@@ -24,11 +20,6 @@ import org.bson.types.ObjectId;
 @Repository
 public class MongoDBOrderRepository implements OrderRepository {
 
-    private static final TransactionOptions txnOptions = TransactionOptions.builder()
-            .readPreference(ReadPreference.primary())
-            .readConcern(ReadConcern.MAJORITY)
-            .writeConcern(WriteConcern.MAJORITY)
-            .build();
     private final MongoClient client;
     private MongoCollection<OrderEntity> orderCollection;
     private final String DATABASE_NAME = "Hachiko";
