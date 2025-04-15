@@ -13,7 +13,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import com.mongodb.starter.dtos.NotificationDTO;
-import com.mongodb.starter.entity.NotificationEntity;
 import com.mongodb.starter.usecases.interfaces.NotificationUsecase;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
@@ -42,7 +41,7 @@ public class NotificationController {
     @ApiResponse(responseCode = "200", description = "Successfully retrieved all notifications")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<NotificationEntity> getAllNotifications() {
+    public List<NotificationDTO> getAllNotifications() {
         return notificationUsecase.getAllNotifications();
     }
 
@@ -56,7 +55,7 @@ public class NotificationController {
     })
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public NotificationEntity getNotification(@PathVariable String id) {
+    public NotificationDTO getNotification(@PathVariable String id) {
         return notificationUsecase.getNotification(id);
     }
 
@@ -70,8 +69,8 @@ public class NotificationController {
     })
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public NotificationEntity createNotification(@RequestBody NotificationDTO notificationDTO) {
-        return notificationUsecase.createNotification(notificationDTO.toNotificationEntity());
+    public NotificationDTO createNotification(@RequestBody NotificationDTO notificationDTO) {
+        return notificationUsecase.createNotification(notificationDTO);
     }
 
     @Operation(summary = "Update an existing notification",
@@ -85,8 +84,8 @@ public class NotificationController {
     })
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
-    public NotificationEntity updateNotification(@RequestBody NotificationDTO notificationDTO) {
-        return notificationUsecase.updateNotification(notificationDTO.toNotificationEntity());
+    public NotificationDTO updateNotification(@RequestBody NotificationDTO notificationDTO) {
+        return notificationUsecase.updateNotification(notificationDTO);
     }
 
     @Operation(summary = "Delete a notification",

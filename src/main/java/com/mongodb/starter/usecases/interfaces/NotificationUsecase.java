@@ -1,17 +1,18 @@
 package com.mongodb.starter.usecases.interfaces;
 
 import java.util.List;
-import com.mongodb.starter.entity.NotificationEntity;
+
+import com.mongodb.starter.dtos.NotificationDTO;
 
 public interface NotificationUsecase {
     
-    NotificationEntity createNotification(NotificationEntity notificationEntity);
+    NotificationDTO createNotification(NotificationDTO notificationEntity);
     
-    List<NotificationEntity> getAllNotifications();
+    List<NotificationDTO> getAllNotifications();
     
-    NotificationEntity getNotification(String id);
+    NotificationDTO getNotification(String id);
     
-    NotificationEntity updateNotification(NotificationEntity entity);
+    NotificationDTO updateNotification(NotificationDTO entity);
 
     void deleteNotification(String id);
 }

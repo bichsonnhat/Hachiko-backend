@@ -76,6 +76,18 @@ public class NotificationEntity {
     }
 
     @Override
+public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    NotificationEntity that = (NotificationEntity) o;
+    return Objects.equals(id, that.id) &&
+           Objects.equals(description, that.description) &&
+           Objects.equals(imageUrl, that.imageUrl) &&
+           Objects.equals(title, that.title) &&
+           Objects.equals(date, that.date);
+}
+
+    @Override
     public int hashCode() {
         return Objects.hash(id, description, imageUrl, title, date);
     }

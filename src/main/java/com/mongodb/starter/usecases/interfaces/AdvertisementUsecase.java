@@ -2,16 +2,16 @@ package com.mongodb.starter.usecases.interfaces;
 
 import java.util.List;
 
-import com.mongodb.starter.entity.AdvertisementEntity;
+import com.mongodb.starter.dtos.AdvertisementDTO;
 
 public interface AdvertisementUsecase {
-    AdvertisementEntity createAdvertisement(AdvertisementEntity advertisementEntity);
+    AdvertisementDTO createAdvertisement(AdvertisementDTO advertisementEntity);
 
-    List<AdvertisementEntity> getAdvertisements();
+    List<AdvertisementDTO> getAdvertisements();
 
-    AdvertisementEntity getAdvertisement(String id);
+    AdvertisementDTO getAdvertisement(String id);
 
-    AdvertisementEntity updateAdvertisement(AdvertisementEntity entity);
+    AdvertisementDTO updateAdvertisement(AdvertisementDTO entity);
 
     void deleteAdvertisement(String id);
 }

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.mongodb.starter.entity.AdvertisementEntity;
+import com.mongodb.starter.dtos.AdvertisementDTO;
 import com.mongodb.starter.repositories.interfaces.AdvertisementRepository;
 import com.mongodb.starter.usecases.interfaces.AdvertisementUsecase;
 
@@ -17,23 +17,23 @@ public class AdvertisementUsecaseImpl implements AdvertisementUsecase {
     }
 
     @Override
-    public AdvertisementEntity createAdvertisement(AdvertisementEntity advertisementEntity) {
-        return advertisementRepository.insertOne(advertisementEntity);
+    public AdvertisementDTO createAdvertisement(AdvertisementDTO advertisementEntity) {
+        return new AdvertisementDTO(advertisementRepository.insertOne(advertisementEntity.toAdvertisementEntity()));
     }
 
     @Override
-    public List<AdvertisementEntity> getAdvertisements() {
-        return this.advertisementRepository.findAll();
+    public List<AdvertisementDTO> getAdvertisements() {
+        return this.advertisementRepository.findAll().stream().map(AdvertisementDTO::new).toList();
     }
 
     @Override
-    public AdvertisementEntity getAdvertisement(String id) {
-        return this.advertisementRepository.findOne(id);
+    public AdvertisementDTO getAdvertisement(String id) {
+        return new AdvertisementDTO(this.advertisementRepository.findOne(id));
     }
 
     @Override
-    public AdvertisementEntity updateAdvertisement(AdvertisementEntity entity) {
-        return this.advertisementRepository.updateOne(entity);
+    public AdvertisementDTO updateAdvertisement(AdvertisementDTO entity) {
+        return new AdvertisementDTO(this.advertisementRepository.updateOne(entity.toAdvertisementEntity()));
     }
 
     @Override

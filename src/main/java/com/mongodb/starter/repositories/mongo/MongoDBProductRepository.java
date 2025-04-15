@@ -98,7 +98,7 @@ public List<Document> findAllGroupedByCategoryAggregation() {
             )
         ),
         new Document("$project", 
-            new Document("categoryID", new Document("$toString", "$_id"))
+            new Document("_id", new Document("$toString", "$_id"))
                 .append("products", 1)
         )
     ), Document.class).into(new ArrayList<>());

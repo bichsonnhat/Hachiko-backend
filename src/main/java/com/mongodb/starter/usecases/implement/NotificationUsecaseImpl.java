@@ -3,7 +3,7 @@ package com.mongodb.starter.usecases.implement;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
-import com.mongodb.starter.entity.NotificationEntity;
+import com.mongodb.starter.dtos.NotificationDTO;
 import com.mongodb.starter.repositories.interfaces.NotificationRepository;
 import com.mongodb.starter.usecases.interfaces.NotificationUsecase;
 
@@ -17,23 +17,23 @@ public class NotificationUsecaseImpl implements NotificationUsecase {
     }
 
     @Override
-    public NotificationEntity createNotification(NotificationEntity notificationEntity) {
-        return notificationRepository.insertOne(notificationEntity);
+    public NotificationDTO createNotification(NotificationDTO notificationEntity) {
+        return new NotificationDTO(notificationRepository.insertOne(notificationEntity.toNotificationEntity()));
     }
 
     @Override
-    public List<NotificationEntity> getAllNotifications() {
-        return notificationRepository.findAll();
+    public List<NotificationDTO> getAllNotifications() {
+        return notificationRepository.findAll().stream().map(NotificationDTO::new).toList();
     }
 
     @Override
-    public NotificationEntity getNotification(String id) {
-        return notificationRepository.findOne(id);
+    public NotificationDTO getNotification(String id) {
+        return new NotificationDTO(notificationRepository.findOne(id));
     }
 
     @Override
-    public NotificationEntity updateNotification(NotificationEntity entity) {
-        return notificationRepository.updateOne(entity);
+    public NotificationDTO updateNotification(NotificationDTO entity) {
+        return new NotificationDTO(notificationRepository.updateOne(entity.toNotificationEntity()));
     }
 
     @Override
