@@ -13,7 +13,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import com.mongodb.starter.dtos.AdvertisementDTO;
-import com.mongodb.starter.entity.AdvertisementEntity;
 import com.mongodb.starter.usecases.interfaces.AdvertisementUsecase;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
@@ -46,8 +45,8 @@ public class Advertisement {
     })
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public AdvertisementEntity createAdvertisement(@RequestBody AdvertisementDTO advertisementDTO) {
-        return advertisementUsecase.createAdvertisement(advertisementDTO.toAdvertisementEntity());
+    public AdvertisementDTO createAdvertisement(@RequestBody AdvertisementDTO advertisementDTO) {
+        return advertisementUsecase.createAdvertisement(advertisementDTO);
     }
 
     @Operation(summary = "Get all advertisements",
@@ -56,7 +55,7 @@ public class Advertisement {
                )
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<AdvertisementEntity> getCategories() {
+    public List<AdvertisementDTO> getCategories() {
         return advertisementUsecase.getAdvertisements();
     }
 
@@ -70,7 +69,7 @@ public class Advertisement {
     })
     @GetMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
-    public AdvertisementEntity getCategory(@PathVariable String id) {
+    public AdvertisementDTO getCategory(@PathVariable String id) {
         return advertisementUsecase.getAdvertisement(id);
     }
 
@@ -85,8 +84,8 @@ public class Advertisement {
     })
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
-    public AdvertisementEntity updateCategory(@RequestBody AdvertisementDTO advertisementDTO) {
-        return advertisementUsecase.updateAdvertisement(advertisementDTO.toAdvertisementEntity());
+    public AdvertisementDTO updateCategory(@RequestBody AdvertisementDTO advertisementDTO) {
+        return advertisementUsecase.updateAdvertisement(advertisementDTO);
     }
 
     @Operation(summary = "Delete an advertisement",
