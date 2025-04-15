@@ -13,6 +13,7 @@ import org.bson.Document;
 import com.mongodb.client.model.Accumulators;
 import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.FindOneAndReplaceOptions;
+import com.mongodb.client.model.Projections;
 import com.mongodb.starter.entity.ProductEntity;
 import com.mongodb.starter.repositories.interfaces.ProductRepository;
 
@@ -76,10 +77,30 @@ public class MongoDBProductRepository implements ProductRepository {
     }
 
     @Override
-    public List<Document> findAllGroupedByCategoryAggregation() {
-        return productCollection.aggregate(Arrays.asList(
-            Aggregates.group("$categoryID", 
-                Accumulators.push("products", "$$ROOT"))
-        ), Document.class).into(new ArrayList<>());
-    }
+public List<Document> findAllGroupedByCategoryAggregation() {
+    return productCollection.aggregate(Arrays.asList(
+        Aggregates.group("$categoryID", 
+            Accumulators.push("products", "$$ROOT")),
+        new Document("$addFields", 
+            new Document("products", 
+                new Document("$map", 
+                    new Document("input", "$products")
+                        .append("as", "product")
+                        .append("in", new Document()
+                            .append("_id", new Document("$toString", "$$product._id"))
+                            .append("categoryID", new Document("$toString", "$$product.categoryID"))
+                            .append("description", "$$product.description")
+                            .append("imageUrl", "$$product.imageUrl")
+                            .append("price", "$$product.price")
+                            .append("title", "$$product.title")
+                        )
+                )
+            )
+        ),
+        new Document("$project", 
+            new Document("categoryID", new Document("$toString", "$_id"))
+                .append("products", 1)
+        )
+    ), Document.class).into(new ArrayList<>());
+}
 }

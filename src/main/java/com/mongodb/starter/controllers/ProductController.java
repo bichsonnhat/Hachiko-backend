@@ -44,7 +44,7 @@ public class ProductController {
     @ApiResponse(responseCode = "200", description = "Successfully retrieved all products")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<ProductEntity> getProducts(@RequestParam(value = "category_id", required = false) String categoryId) {
+    public List<ProductDTO> getProducts(@RequestParam(value = "category_id", required = false) String categoryId) {
     if (categoryId != null && !categoryId.isEmpty()) {
         return productUsecase.getProductsByCategory(categoryId);
     }
@@ -62,7 +62,7 @@ public class ProductController {
     })
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ProductEntity getProduct(
+    public ProductDTO getProduct(
             @Parameter(description = "ID of the product to retrieve")
             @PathVariable String id) {
         return productUsecase.getProduct(id);
@@ -78,10 +78,10 @@ public class ProductController {
     })
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ProductEntity createProduct(
+    public ProductDTO createProduct(
             @Parameter(description = "Product information for creation")
             @RequestBody ProductDTO productDTO) {
-        return productUsecase.createProduct(productDTO.toProductEntity());
+        return productUsecase.createProduct(productDTO);
     }
 
     @Operation(summary = "Update an existing product",
@@ -95,10 +95,10 @@ public class ProductController {
     })
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
-    public ProductEntity updateProduct(
+    public ProductDTO updateProduct(
             @Parameter(description = "Updated product information")
             @RequestBody ProductDTO productDTO) {
-        return productUsecase.updateProduct(productDTO.toProductEntity());
+        return productUsecase.updateProduct(productDTO);
     }
 
     @Operation(summary = "Delete a product",

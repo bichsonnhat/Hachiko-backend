@@ -89,6 +89,19 @@ public class ProductEntity {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProductEntity that = (ProductEntity) o;
+        return Double.compare(that.price, price) == 0 &&
+            Objects.equals(id, that.id) &&
+            Objects.equals(description, that.description) &&
+            Objects.equals(imageUrl, that.imageUrl) &&
+            Objects.equals(title, that.title) &&
+            Objects.equals(categoryID, that.categoryID);
+}
+
+    @Override
     public int hashCode() {
         return Objects.hash(id, description, imageUrl, price, title, categoryID);
     }

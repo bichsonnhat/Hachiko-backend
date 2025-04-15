@@ -4,20 +4,20 @@ import java.util.List;
 
 import org.bson.Document;
 
-import com.mongodb.starter.entity.ProductEntity;
+import com.mongodb.starter.dtos.ProductDTO;
 
 public interface ProductUsecase  {
-    ProductEntity createProduct(ProductEntity productEntity);
+    ProductDTO createProduct(ProductDTO productEntity);
     
-    List<ProductEntity> getAllProducts();
+    List<ProductDTO> getAllProducts();
     
-    ProductEntity getProduct(String id);
+    ProductDTO getProduct(String id);
     
-    ProductEntity updateProduct(ProductEntity entity);
+    ProductDTO updateProduct(ProductDTO entity);
 
     void deleteProduct(String id);
 
-    List<ProductEntity> getProductsByCategory(String id);
+    List<ProductDTO> getProductsByCategory(String id);
 
     List<Document> getAllGroupedByCategoryAggregation();
 }

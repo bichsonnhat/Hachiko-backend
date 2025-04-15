@@ -5,7 +5,7 @@ import java.util.List;
 import org.bson.Document;
 import org.springframework.stereotype.Service;
 
-import com.mongodb.starter.entity.ProductEntity;
+import com.mongodb.starter.dtos.ProductDTO;
 import com.mongodb.starter.repositories.interfaces.ProductRepository;
 import com.mongodb.starter.usecases.interfaces.ProductUsecase;
 
@@ -19,23 +19,23 @@ public class ProductUsecaseImpl implements ProductUsecase {
     }
 
     @Override
-    public ProductEntity createProduct(ProductEntity productEntity) {
-        return productRepository.insertOne(productEntity);
+    public ProductDTO createProduct(ProductDTO productEntity) {
+        return new ProductDTO(productRepository.insertOne(productEntity.toProductEntity()));
     }
 
     @Override
-    public List<ProductEntity> getAllProducts() {
-        return productRepository.findAll();
+    public List<ProductDTO> getAllProducts() {
+        return productRepository.findAll().stream().map(ProductDTO::new).toList();
     }
 
     @Override
-    public ProductEntity getProduct(String id) {
-        return productRepository.findOne(id);
+    public ProductDTO getProduct(String id) {
+        return new ProductDTO(productRepository.findOne(id));
     }
 
     @Override
-    public ProductEntity updateProduct(ProductEntity entity) {
-        return productRepository.updateOne(entity);
+    public ProductDTO updateProduct(ProductDTO entity) {
+        return new ProductDTO(productRepository.updateOne(entity.toProductEntity()));
     }
 
     @Override
@@ -44,8 +44,8 @@ public class ProductUsecaseImpl implements ProductUsecase {
     }
 
     @Override
-    public List<ProductEntity> getProductsByCategory(String id) {
-        return productRepository.findByCategory(id);
+    public List<ProductDTO> getProductsByCategory(String id) {
+        return productRepository.findByCategory(id).stream().map(ProductDTO::new).toList();
     }
 
     @Override
