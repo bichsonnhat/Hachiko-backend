@@ -14,6 +14,7 @@ import org.bson.Document;
 import com.mongodb.client.model.Accumulators;
 import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.FindOneAndReplaceOptions;
+import com.mongodb.client.model.Sorts;
 import com.mongodb.starter.entity.ProductEntity;
 import com.mongodb.starter.repositories.interfaces.ProductRepository;
 
@@ -84,7 +85,7 @@ public class MongoDBProductRepository implements ProductRepository {
                                         new Document("input", "$products")
                                                 .append("as", "product")
                                                 .append("in", new Document()
-                                                        .append("_id", new Document("$toString", "$$product._id"))
+                                                        .append("id", new Document("$toString", "$$product._id"))
                                                         .append("categoryID",
                                                                 new Document("$toString", "$$product.categoryID"))
                                                         .append("description", "$$product.description")
@@ -93,8 +94,8 @@ public class MongoDBProductRepository implements ProductRepository {
                                                         .append("title", "$$product.title"))))),
                 new Document("$project",
                         new Document("categoryID", new Document("$toString", "$_id"))
-                                .append("products", 1))),
-                Document.class).into(new ArrayList<>());
+                                .append("products", 1)),
+                Aggregates.sort(Sorts.ascending("categoryID"))), Document.class).into(new ArrayList<>());
     }
 
     @Override

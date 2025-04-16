@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.FindOneAndReplaceOptions;
+import com.mongodb.client.model.Sorts;
 import com.mongodb.starter.entity.CategoryEntity;
 import com.mongodb.starter.repositories.interfaces.CategoryRepository;
 
@@ -47,7 +48,7 @@ public class MongoDBCategoryRepository implements CategoryRepository {
 
     @Override
     public List<CategoryEntity> findAll() {
-        return categoryCollection.find().into(new ArrayList<>());
+        return categoryCollection.find().sort(Sorts.descending("name")).into(new ArrayList<>());
     }
 
     @Override
