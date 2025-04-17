@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import com.mongodb.starter.dtos.FavouriteProductDTO;
+import com.mongodb.starter.dtos.FavouriteProductsResponse;
 import com.mongodb.starter.dtos.ProductDTO;
 import com.mongodb.starter.entity.FavouriteProductEntity;
 import com.mongodb.starter.entity.ProductEntity;
@@ -29,8 +30,11 @@ public class FavouriteProductUsecaseImpl implements FavouriteProductUsecase {
     }
 
     @Override
-    public List<ProductDTO> getFavouriteProductsByUserId(String userId) {
+    public FavouriteProductsResponse getFavouriteProductsByUserId(String userId) {
         List<FavouriteProductEntity> entities = favouriteProductRepository.getFavouriteProductsByUserId(userId);
+        List<FavouriteProductDTO> fav = entities.stream()
+                .map(entity -> new FavouriteProductDTO(entity))
+                .collect(Collectors.toList());
         List<String> productIds = entities.stream()
                 .map(favouriteProduct -> favouriteProduct.getProductId().toHexString())
                 .collect(Collectors.toList());
@@ -39,7 +43,9 @@ public class FavouriteProductUsecaseImpl implements FavouriteProductUsecase {
         List<ProductDTO> productDTOs = productsInList.stream()
                 .map(ProductDTO::new)
                 .collect(Collectors.toList());
-        return productDTOs;
+
+        FavouriteProductsResponse favouriteProductsResponse = new FavouriteProductsResponse(fav, productDTOs);
+        return favouriteProductsResponse;
     }
 
     @Override

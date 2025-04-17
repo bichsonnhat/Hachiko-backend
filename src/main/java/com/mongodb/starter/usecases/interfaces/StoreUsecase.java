@@ -1,17 +1,18 @@
 package com.mongodb.starter.usecases.interfaces;
 
+import com.mongodb.starter.dtos.StoreDTO;
 import com.mongodb.starter.entity.StoreEntity;
 
 import java.util.List;
 
 public interface StoreUsecase {
-    StoreEntity createStore(StoreEntity storeEntity);
+    StoreDTO createStore(StoreEntity storeEntity);
 
-    List<StoreEntity> getStores();
+    List<StoreDTO> getStores();
 
-    StoreEntity getStore(String id);
+    StoreDTO getStore(String id);
 
-    StoreEntity updateStore(StoreEntity entity);
+    StoreDTO updateStore(StoreEntity entity);
 
     void deleteStore(String id);
 }

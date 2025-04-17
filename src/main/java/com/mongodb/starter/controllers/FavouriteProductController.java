@@ -1,7 +1,5 @@
 package com.mongodb.starter.controllers;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -16,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mongodb.starter.dtos.FavouriteProductDTO;
-import com.mongodb.starter.dtos.ProductDTO;
+import com.mongodb.starter.dtos.FavouriteProductsResponse;
 import com.mongodb.starter.usecases.interfaces.FavouriteProductUsecase;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -44,7 +42,7 @@ public class FavouriteProductController {
         })
         @GetMapping("/{userId}")
         @ResponseStatus(HttpStatus.OK)
-        public List<ProductDTO> getFavouriteProducts(@PathVariable String userId) {
+        public FavouriteProductsResponse getFavouriteProducts(@PathVariable String userId) {
                 return favouriteProductUsecase.getFavouriteProductsByUserId(userId);
         }
 
