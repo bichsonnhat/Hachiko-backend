@@ -53,4 +53,8 @@ public class FavouriteProductUsecaseImpl implements FavouriteProductUsecase {
         favouriteProductRepository.removeProductFromFavouriteProductList(id);
     }
 
+    @Override
+    public boolean checkIfProductIsInFavouriteProductList(String userId, String productId) {
+        return favouriteProductRepository.checkIfProductIsInFavouriteProductList(userId, productId);
+    }
 }

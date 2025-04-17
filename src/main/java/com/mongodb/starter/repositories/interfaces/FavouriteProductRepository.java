@@ -13,4 +13,6 @@ public interface FavouriteProductRepository {
     FavouriteProductEntity addNewProductIntoFavouriteProductList(FavouriteProductEntity favouriteProductEntity);
 
     void removeProductFromFavouriteProductList(String id);
+
+    boolean checkIfProductIsInFavouriteProductList(String userId, String productId);
 }

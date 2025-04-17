@@ -48,4 +48,10 @@ public class MongoDBFavouriteProductRepository implements FavouriteProductReposi
         favouriteProductCollection.deleteOne(new org.bson.Document("_id", new org.bson.types.ObjectId(id)));
     }
 
+    @Override
+    public boolean checkIfProductIsInFavouriteProductList(String userId, String productId) {
+        return favouriteProductCollection.find(eq("userId", new ObjectId(userId)))
+                .filter(eq("productId", new ObjectId(productId))).first() != null;
+    }
+
 }

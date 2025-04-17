@@ -13,4 +13,6 @@ public interface FavouriteProductUsecase {
     FavouriteProductDTO addNewProductIntoFavouriteProductList(FavouriteProductEntity favouriteProductEntity);
 
     void removeProductFromFavouriteProductList(String id);
+
+    boolean checkIfProductIsInFavouriteProductList(String userId, String productId);
 }

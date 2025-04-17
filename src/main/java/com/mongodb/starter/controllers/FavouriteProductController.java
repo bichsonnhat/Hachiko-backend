@@ -61,12 +61,18 @@ public class FavouriteProductController {
                                 .addNewProductIntoFavouriteProductList(favouriteProductDTO.toFavouriteProductEntity());
         }
 
-        @Operation(summary = "Update favourite product list", description = "Remove product from user's favourite product list with its id", security = {
+        @Operation(summary = "Check if product is in favourite product list", description = "Check if a product is in the user's favourite product list", security = {
                         @io.swagger.v3.oas.annotations.security.SecurityRequirement(name = "api_key") })
         @ApiResponses(value = {
-                        @ApiResponse(responseCode = "204", description = "Successfully removed product from user's favourite product list"),
-                        @ApiResponse(responseCode = "404", description = "Product not fount")
-        })
+                        @ApiResponse(responseCode = "200", description = "Product is in the favourite product list"),
+                        @ApiResponse(responseCode = "404", description = "Product not found") })
+        @GetMapping("/{userId}/{productId}")
+        @ResponseStatus(HttpStatus.OK)
+        public boolean checkIfProductIsInFavouriteProductList(
+                        @PathVariable String userId, @PathVariable String productId) {
+                return favouriteProductUsecase.checkIfProductIsInFavouriteProductList(userId, productId);
+        }
+
         @DeleteMapping("{id}")
         @ResponseStatus(HttpStatus.NO_CONTENT)
         public void removeProductFromFavouriteProductList(@PathVariable String id) {
