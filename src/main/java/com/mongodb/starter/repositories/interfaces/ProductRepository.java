@@ -9,18 +9,20 @@ import com.mongodb.starter.entity.ProductEntity;
 
 @Repository
 public interface ProductRepository {
-    
+
     ProductEntity insertOne(ProductEntity productEntity);
-    
+
     void deleteOne(String id);
-    
+
     List<ProductEntity> findAll();
-    
+
     ProductEntity findOne(String id);
-    
+
     ProductEntity updateOne(ProductEntity entity);
 
     List<ProductEntity> findByCategory(String id);
 
     List<Document> findAllGroupedByCategoryAggregation();
+
+    List<ProductEntity> findAllByProductIds(List<String> productIds);
 }

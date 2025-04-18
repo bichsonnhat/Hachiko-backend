@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.mongodb.starter.dtos.CategoryDTO;
 import com.mongodb.starter.entity.CategoryEntity;
 import com.mongodb.starter.repositories.interfaces.CategoryRepository;
 import com.mongodb.starter.usecases.interfaces.CategoryUsecase;
@@ -17,8 +18,9 @@ public class CategoryUsecaseImpl implements CategoryUsecase {
     }
 
     @Override
-    public CategoryEntity createCategory(CategoryEntity categoryEntity) {
-        return categoryRepository.insertOne(categoryEntity);
+    public CategoryDTO createCategory(CategoryEntity categoryEntity) {
+        CategoryEntity savedEntity = categoryRepository.insertOne(categoryEntity);
+        return new CategoryDTO(savedEntity);
     }
 
     @Override
@@ -27,18 +29,27 @@ public class CategoryUsecaseImpl implements CategoryUsecase {
     }
 
     @Override
-    public List<CategoryEntity> getCategories() {
-        return this.categoryRepository.findAll();
+    public List<CategoryDTO> getCategories() {
+        List<CategoryEntity> entities = this.categoryRepository.findAll();
+        return entities.stream().map(CategoryDTO::new).toList();
     }
 
     @Override
-    public CategoryEntity getCategory(String id) {
-        return this.categoryRepository.findOne(id);
+    public CategoryDTO getCategory(String id) {
+        CategoryEntity entity = this.categoryRepository.findOne(id);
+        if (entity == null) {
+            return null;
+        }
+        return new CategoryDTO(entity);
     }
 
     @Override
-    public CategoryEntity updateCategory(CategoryEntity entity) {
-        return this.categoryRepository.updateOne(entity);
+    public CategoryDTO updateCategory(CategoryEntity entity) {
+        CategoryEntity updatedEntity = this.categoryRepository.updateOne(entity);
+        if (updatedEntity == null) {
+            return null;
+        }
+        return new CategoryDTO(updatedEntity);
     }
 
 }

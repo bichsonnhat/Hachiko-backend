@@ -2,16 +2,17 @@ package com.mongodb.starter.usecases.interfaces;
 
 import java.util.List;
 
+import com.mongodb.starter.dtos.CategoryDTO;
 import com.mongodb.starter.entity.CategoryEntity;
 
 public interface CategoryUsecase {
-    CategoryEntity createCategory(CategoryEntity categoryEntity);
+    CategoryDTO createCategory(CategoryEntity categoryEntity);
 
-    List<CategoryEntity> getCategories();
+    List<CategoryDTO> getCategories();
 
-    CategoryEntity getCategory(String id);
+    CategoryDTO getCategory(String id);
 
-    CategoryEntity updateCategory(CategoryEntity entity);
+    CategoryDTO updateCategory(CategoryEntity entity);
 
     void deleteCategory(String id);
 }

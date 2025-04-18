@@ -6,6 +6,7 @@ import java.util.List;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Repository;
 import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.in;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
@@ -13,7 +14,7 @@ import org.bson.Document;
 import com.mongodb.client.model.Accumulators;
 import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.FindOneAndReplaceOptions;
-import com.mongodb.client.model.Projections;
+import com.mongodb.client.model.Sorts;
 import com.mongodb.starter.entity.ProductEntity;
 import com.mongodb.starter.repositories.interfaces.ProductRepository;
 
@@ -23,7 +24,6 @@ import jakarta.annotation.PostConstruct;
 
 @Repository
 public class MongoDBProductRepository implements ProductRepository {
-    
     private final MongoClient client;
     private MongoCollection<ProductEntity> productCollection;
     private final String DATABASE_NAME = "Hachiko";
@@ -36,9 +36,8 @@ public class MongoDBProductRepository implements ProductRepository {
     @PostConstruct
     void init() {
         productCollection = client.getDatabase(DATABASE_NAME)
-                                .getCollection(COLLECTION_NAME, ProductEntity.class);
+                .getCollection(COLLECTION_NAME, ProductEntity.class);
     }
-
 
     @Override
     public ProductEntity insertOne(ProductEntity productEntity) {
@@ -60,10 +59,9 @@ public class MongoDBProductRepository implements ProductRepository {
     public ProductEntity updateOne(ProductEntity entity) {
         FindOneAndReplaceOptions options = new FindOneAndReplaceOptions().returnDocument(AFTER);
         return productCollection.findOneAndReplace(
-            eq("_id", entity.getId()), 
-            entity, 
-            options
-        );
+                eq("_id", entity.getId()),
+                entity,
+                options);
     }
 
     @Override
@@ -77,30 +75,34 @@ public class MongoDBProductRepository implements ProductRepository {
     }
 
     @Override
-public List<Document> findAllGroupedByCategoryAggregation() {
-    return productCollection.aggregate(Arrays.asList(
-        Aggregates.group("$categoryID", 
-            Accumulators.push("products", "$$ROOT")),
-        new Document("$addFields", 
-            new Document("products", 
-                new Document("$map", 
-                    new Document("input", "$products")
-                        .append("as", "product")
-                        .append("in", new Document()
-                            .append("_id", new Document("$toString", "$$product._id"))
-                            .append("categoryID", new Document("$toString", "$$product.categoryID"))
-                            .append("description", "$$product.description")
-                            .append("imageUrl", "$$product.imageUrl")
-                            .append("price", "$$product.price")
-                            .append("title", "$$product.title")
-                        )
-                )
-            )
-        ),
-        new Document("$project", 
-            new Document("_id", new Document("$toString", "$_id"))
-                .append("products", 1)
-        )
-    ), Document.class).into(new ArrayList<>());
-}
+    public List<Document> findAllGroupedByCategoryAggregation() {
+        return productCollection.aggregate(Arrays.asList(
+                Aggregates.group("$categoryID",
+                        Accumulators.push("products", "$$ROOT")),
+                new Document("$addFields",
+                        new Document("products",
+                                new Document("$map",
+                                        new Document("input", "$products")
+                                                .append("as", "product")
+                                                .append("in", new Document()
+                                                        .append("id", new Document("$toString", "$$product._id"))
+                                                        .append("categoryID",
+                                                                new Document("$toString", "$$product.categoryID"))
+                                                        .append("description", "$$product.description")
+                                                        .append("imageUrl", "$$product.imageUrl")
+                                                        .append("price", "$$product.price")
+                                                        .append("title", "$$product.title"))))),
+                new Document("$project",
+                        new Document("categoryID", new Document("$toString", "$_id"))
+                                .append("products", 1)),
+                Aggregates.sort(Sorts.ascending("categoryID"))), Document.class).into(new ArrayList<>());
+    }
+
+    @Override
+    public List<ProductEntity> findAllByProductIds(List<String> productIds) {
+        return productCollection.find(in("_id", productIds.stream()
+                .filter(id -> ObjectId.isValid(id))
+                .map(id -> new ObjectId(id))
+                .toList())).into(new ArrayList<>());
+    }
 }

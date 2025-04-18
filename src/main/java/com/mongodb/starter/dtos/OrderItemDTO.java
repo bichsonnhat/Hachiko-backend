@@ -23,8 +23,8 @@ public record OrderItemDTO(
 
     public OrderItemEntity toOrderItemEntity() {
         return new OrderItemEntity(id == null ? null : new ObjectId(id),
-                orderId == null ? null : new ObjectId(orderId),
-                productId == null ? null : new ObjectId(productId), quantity, size, topping,
+                productId == null ? null : new ObjectId(productId),
+                orderId == null ? null : new ObjectId(orderId), quantity, size, topping,
                 note, price);
     }
 }
