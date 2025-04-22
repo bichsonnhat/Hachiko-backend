@@ -23,16 +23,18 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/favourite-products")
 @Tag(name = "favourite-products")
 @SecurityScheme(name = "api_key", type = SecuritySchemeType.APIKEY, in = io.swagger.v3.oas.annotations.enums.SecuritySchemeIn.HEADER, paramName = "X-API-KEY", description = "API key for authentication. Add 'X-API-KEY' header with your API key.")
-@RequiredArgsConstructor
 public class FavouriteProductController {
         private final static Logger LOGGER = LoggerFactory.getLogger(FavouriteProductController.class);
         private final FavouriteProductUsecase favouriteProductUsecase;
+
+        public FavouriteProductController(FavouriteProductUsecase favouriteProductUsecase) {
+                this.favouriteProductUsecase = favouriteProductUsecase;
+        }
 
         @Operation(summary = "Get all favourite products by userId", description = "Retrieves a list of all favourite products for the authenticated user", security = {
                         @io.swagger.v3.oas.annotations.security.SecurityRequirement(name = "api_key") })

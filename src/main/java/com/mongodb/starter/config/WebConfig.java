@@ -17,6 +17,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new ApiKeyInterceptor(apiKeyConfig))
-               .addPathPatterns("/api/**"); // Apply to all API endpoints
+            .addPathPatterns("/**") // Apply to all endpoints
+            .excludePathPatterns("/swagger-ui/**", "/v3/api-docs/**"); // Exclude Swagger UI if needed  
     }
 }

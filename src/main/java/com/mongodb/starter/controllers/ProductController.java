@@ -43,11 +43,13 @@ public class ProductController {
     @ApiResponse(responseCode = "200", description = "Successfully retrieved all products")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<ProductDTO> getProducts(@RequestParam(value = "category_id", required = false) String categoryId) {
-    if (categoryId != null && !categoryId.isEmpty()) {
-        return productUsecase.getProductsByCategory(categoryId);
-    }
-    return productUsecase.getAllProducts();
+    public List<ProductDTO> getProducts(
+            @RequestParam(value = "category_id", required = false) String categoryId,
+            @RequestParam(value = "search", required = false) String search) {
+        if (categoryId != null && !categoryId.isEmpty()) {
+            return productUsecase.getProductsByCategory(categoryId);
+        }
+        return productUsecase.getAllProducts();
     }
 
 

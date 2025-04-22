@@ -21,16 +21,18 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/vouchers")
-@RequiredArgsConstructor
 @Tag(name = "vouchers")
 @SecurityScheme(name = "api_key", type = SecuritySchemeType.APIKEY, in = io.swagger.v3.oas.annotations.enums.SecuritySchemeIn.HEADER, paramName = "X-API-KEY", description = "API key for authentication. Add 'X-API-KEY' header with your API key.")
 public class VoucherController {
     private final static Logger LOGGER = LoggerFactory.getLogger(VoucherController.class);
     private final VoucherUsecase voucherUsecase;
+
+    public VoucherController(VoucherUsecase voucherUsecase) {
+        this.voucherUsecase = voucherUsecase;
+    }
 
     @Operation(summary = "Get all vouchers", description = "Retrieves a list of all vouchers in the system", security = {
             @SecurityRequirement(name = "api_key") })

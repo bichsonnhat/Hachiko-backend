@@ -1,7 +1,25 @@
 package com.mongodb.starter.usecases.interfaces;
 
-import com.mongodb.starter.entity.UserEntity;
+import java.util.List;
+import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
+import com.mongodb.starter.dtos.UserDTO;
+
+@Service
 public interface UserUsecase {
-    UserEntity createUser(UserEntity userEntity);
+    List<UserDTO> getAllUsers();
+    
+    Optional<UserDTO> getUserById(String id);
+    
+    Optional<UserDTO> getUserByEmail(String email);
+    
+    Optional<UserDTO> getUserByPhoneNumber(String phoneNumber);
+    
+    UserDTO createUser(UserDTO userDTO);
+    
+    UserDTO updateUser(String id, UserDTO userDTO);
+    
+    void deleteUser(String id);
 }

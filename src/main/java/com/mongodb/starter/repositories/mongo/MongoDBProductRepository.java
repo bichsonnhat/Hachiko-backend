@@ -28,6 +28,7 @@ public class MongoDBProductRepository implements ProductRepository {
     private MongoCollection<ProductEntity> productCollection;
     private final String DATABASE_NAME = "Hachiko";
     private final String COLLECTION_NAME = "products";
+    private final String CATEGORY_COLLECTION_NAME = "categories";
 
     public MongoDBProductRepository(MongoClient mongoClient) {
         this.client = mongoClient;
@@ -77,8 +78,17 @@ public class MongoDBProductRepository implements ProductRepository {
     @Override
     public List<Document> findAllGroupedByCategoryAggregation() {
         return productCollection.aggregate(Arrays.asList(
+                new Document("$lookup", 
+                        new Document("from", CATEGORY_COLLECTION_NAME)
+                                .append("localField", "categoryID")
+                                .append("foreignField", "_id")
+                                .append("as", "category")),
+                new Document("$unwind", 
+                        new Document("path", "$category")
+                                .append("preserveNullAndEmptyArrays", true)),
                 Aggregates.group("$categoryID",
-                        Accumulators.push("products", "$$ROOT")),
+                        Accumulators.push("products", "$$ROOT"),
+                        Accumulators.first("categoryName", "$category.name")),
                 new Document("$addFields",
                         new Document("products",
                                 new Document("$map",
@@ -88,12 +98,15 @@ public class MongoDBProductRepository implements ProductRepository {
                                                         .append("id", new Document("$toString", "$$product._id"))
                                                         .append("categoryID",
                                                                 new Document("$toString", "$$product.categoryID"))
+                                                        .append("categoryName", "$categoryName")
                                                         .append("description", "$$product.description")
                                                         .append("imageUrl", "$$product.imageUrl")
                                                         .append("price", "$$product.price")
                                                         .append("title", "$$product.title"))))),
                 new Document("$project",
-                        new Document("categoryID", new Document("$toString", "$_id"))
+                        new Document("_id", 0)
+                                .append("categoryID", new Document("$toString", "$_id"))
+                                .append("categoryName", 1)
                                 .append("products", 1)),
                 Aggregates.sort(Sorts.ascending("categoryID"))), Document.class).into(new ArrayList<>());
     }

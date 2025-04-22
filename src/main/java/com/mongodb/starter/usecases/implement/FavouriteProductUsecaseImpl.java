@@ -14,13 +14,16 @@ import com.mongodb.starter.repositories.interfaces.FavouriteProductRepository;
 import com.mongodb.starter.repositories.interfaces.ProductRepository;
 import com.mongodb.starter.usecases.interfaces.FavouriteProductUsecase;
 
-import lombok.RequiredArgsConstructor;
-
 @Service
-@RequiredArgsConstructor
 public class FavouriteProductUsecaseImpl implements FavouriteProductUsecase {
     private final FavouriteProductRepository favouriteProductRepository;
     private final ProductRepository productRepository;
+
+    public FavouriteProductUsecaseImpl(FavouriteProductRepository favouriteProductRepository,
+            ProductRepository productRepository) {
+        this.favouriteProductRepository = favouriteProductRepository;
+        this.productRepository = productRepository;
+    }
 
     @Override
     public FavouriteProductDTO addNewProductIntoFavouriteProductList(FavouriteProductEntity favouriteProductEntity) {

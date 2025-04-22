@@ -8,12 +8,13 @@ import com.mongodb.starter.dtos.VoucherDTO;
 import com.mongodb.starter.repositories.interfaces.VoucherRepository;
 import com.mongodb.starter.usecases.interfaces.VoucherUsecase;
 
-import lombok.RequiredArgsConstructor;
-
 @Service
-@RequiredArgsConstructor
 public class VoucherUsecasImpl implements VoucherUsecase {
     private final VoucherRepository voucherRepository;
+
+    public VoucherUsecasImpl(VoucherRepository voucherRepository) {
+        this.voucherRepository = voucherRepository;
+    }
 
     @Override
     public List<VoucherDTO> getAllVouchers() {
