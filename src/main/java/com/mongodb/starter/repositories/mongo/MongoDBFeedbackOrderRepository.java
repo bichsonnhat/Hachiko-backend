@@ -1,5 +1,7 @@
 package com.mongodb.starter.repositories.mongo;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.mongodb.client.MongoClient;
@@ -30,6 +32,11 @@ public class MongoDBFeedbackOrderRepository implements FeedbackOrderRepository {
     public FeedbackOrderEntity addNewFeedbackOrder(FeedbackOrderEntity feedbackOrderEntity) {
         feedbackOrderCollection.insertOne(feedbackOrderEntity);
         return feedbackOrderEntity;
+    }
+
+    @Override
+    public List<FeedbackOrderEntity> getAllFeedbackOrders() {
+        return feedbackOrderCollection.find().into(new java.util.ArrayList<>());
     }
 
 }

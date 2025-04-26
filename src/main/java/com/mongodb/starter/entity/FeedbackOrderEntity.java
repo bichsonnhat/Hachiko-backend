@@ -5,6 +5,7 @@ import org.bson.types.ObjectId;
 public class FeedbackOrderEntity {
     private ObjectId id;
     private ObjectId userId;
+    private String username;
     private ObjectId orderId;
     private String feedbackContent;
     private int rating;
@@ -12,9 +13,11 @@ public class FeedbackOrderEntity {
     public FeedbackOrderEntity() {
     }
 
-    public FeedbackOrderEntity(ObjectId id, ObjectId userId, ObjectId orderId, String feedbackContent, int rating) {
+    public FeedbackOrderEntity(ObjectId id, ObjectId userId, String username, ObjectId orderId, String feedbackContent,
+            int rating) {
         this.id = id;
         this.userId = userId;
+        this.username = username;
         this.orderId = orderId;
         this.feedbackContent = feedbackContent;
         this.rating = rating;
@@ -60,12 +63,21 @@ public class FeedbackOrderEntity {
         this.rating = rating;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+        result = prime * result + ((username == null) ? 0 : username.hashCode());
         result = prime * result + ((orderId == null) ? 0 : orderId.hashCode());
         result = prime * result + ((feedbackContent == null) ? 0 : feedbackContent.hashCode());
         result = prime * result + rating;
@@ -91,6 +103,11 @@ public class FeedbackOrderEntity {
                 return false;
         } else if (!userId.equals(other.userId))
             return false;
+        if (username == null) {
+            if (other.username != null)
+                return false;
+        } else if (!username.equals(other.username))
+            return false;
         if (orderId == null) {
             if (other.orderId != null)
                 return false;
@@ -108,8 +125,8 @@ public class FeedbackOrderEntity {
 
     @Override
     public String toString() {
-        return "FeedbackOrderEntity [id=" + id + ", userId=" + userId + ", orderId=" + orderId + ", feedbackContent="
-                + feedbackContent + ", rating=" + rating + "]";
+        return "FeedbackOrderEntity [id=" + id + ", userId=" + userId + ", username=" + username + ", orderId="
+                + orderId + ", feedbackContent=" + feedbackContent + ", rating=" + rating + "]";
     }
 
 }

@@ -1,10 +1,13 @@
 package com.mongodb.starter.controllers;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -57,6 +60,16 @@ public class FeedbackController {
     public FeedbackOrderDTO addNewOrderFeedback(
             @RequestBody FeedbackOrderDTO feedbackOrderDTO) {
         return feedbackUsecase.addNewFeedbackOrder(feedbackOrderDTO.toFeedbackOrderEntity());
+    }
+
+    @Operation(summary = "Get all order feedbacks", description = "Retrieve all feedbacks for orders", security = {
+            @io.swagger.v3.oas.annotations.security.SecurityRequirement(name = "api_key") })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully retrieved all order feedbacks"),
+    })
+    @GetMapping("")
+    public List<FeedbackOrderDTO> getAllOrderFeedbacks() {
+        return feedbackUsecase.getAllFeedbackOrders();
     }
 
     @ExceptionHandler(RuntimeException.class)

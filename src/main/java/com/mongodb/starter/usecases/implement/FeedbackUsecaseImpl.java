@@ -1,5 +1,7 @@
 package com.mongodb.starter.usecases.implement;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.mongodb.starter.dtos.FeedbackDTO;
@@ -30,6 +32,14 @@ public class FeedbackUsecaseImpl implements FeedbackUsecase {
     public FeedbackOrderDTO addNewFeedbackOrder(FeedbackOrderEntity feedbackOrderEntity) {
         FeedbackOrderEntity savedEntity = feedbackOrderRepository.addNewFeedbackOrder(feedbackOrderEntity);
         return new FeedbackOrderDTO(savedEntity);
+    }
+
+    @Override
+    public List<FeedbackOrderDTO> getAllFeedbackOrders() {
+        List<FeedbackOrderEntity> feedbackOrderEntities = feedbackOrderRepository.getAllFeedbackOrders();
+        return feedbackOrderEntities.stream()
+                .map(FeedbackOrderDTO::new)
+                .toList();
     }
 
 }
