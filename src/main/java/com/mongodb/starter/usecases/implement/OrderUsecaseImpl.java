@@ -65,8 +65,13 @@ public class OrderUsecaseImpl implements OrderUsecase {
     }
 
     @Override
-    public List<OrderResponseDTO> getOrdersByCustomerId(String userId) {
+    public List<OrderResponseDTO> getOrdersByCustomerId(String userId, String orderStatus) {
         List<OrderEntity> orders = orderRepository.findAllByUserId(userId);
+
+        if (orderStatus != null) {
+            orders = orders.stream().filter(order -> order.getOrderStatus().equalsIgnoreCase(orderStatus)).toList();
+        }
+
         List<OrderResponseDTO> orderResponseDTOs = orders.stream().map(order -> {
             List<OrderItemEntity> orderItemEntities = orderItemRepository.findAllByOrderId(order.getId().toHexString());
 
@@ -75,6 +80,7 @@ public class OrderUsecaseImpl implements OrderUsecase {
 
             return new OrderResponseDTO(new OrderDTO(order), responseOrderItems);
         }).toList();
+
         return orderResponseDTOs;
     }
 

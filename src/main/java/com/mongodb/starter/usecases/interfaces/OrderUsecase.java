@@ -21,5 +21,5 @@ public interface OrderUsecase {
 
     OrderResponseDTO updateOrder(OrderEntity orderEntity);
 
-    List<OrderResponseDTO> getOrdersByCustomerId(String customerId);
+    List<OrderResponseDTO> getOrdersByCustomerId(String customerId, String orderStatus);
 }

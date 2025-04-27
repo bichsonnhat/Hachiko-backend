@@ -2,8 +2,6 @@ package com.mongodb.starter.controllers;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,7 +25,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "vouchers")
 @SecurityScheme(name = "api_key", type = SecuritySchemeType.APIKEY, in = io.swagger.v3.oas.annotations.enums.SecuritySchemeIn.HEADER, paramName = "X-API-KEY", description = "API key for authentication. Add 'X-API-KEY' header with your API key.")
 public class VoucherController {
-    private final static Logger LOGGER = LoggerFactory.getLogger(VoucherController.class);
     private final VoucherUsecase voucherUsecase;
 
     public VoucherController(VoucherUsecase voucherUsecase) {
