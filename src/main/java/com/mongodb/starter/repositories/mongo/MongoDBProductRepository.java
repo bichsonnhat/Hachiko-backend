@@ -15,6 +15,7 @@ import com.mongodb.client.model.Accumulators;
 import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.FindOneAndReplaceOptions;
 import com.mongodb.client.model.Sorts;
+import com.mongodb.starter.dtos.FilteredProductResponse;
 import com.mongodb.starter.entity.ProductEntity;
 import com.mongodb.starter.repositories.interfaces.ProductRepository;
 
@@ -117,5 +118,23 @@ public class MongoDBProductRepository implements ProductRepository {
                 .filter(id -> ObjectId.isValid(id))
                 .map(id -> new ObjectId(id))
                 .toList())).into(new ArrayList<>());
+    }
+
+    @Override
+    public FilteredProductResponse<ProductEntity> filterProduct(String search, Integer page) {
+        int pageSize = 10;
+        int skip = (page - 1) * pageSize;
+
+        Document regexQuery = new Document("$regex", ".*" + search + ".*").append("$options", "i");
+
+        long totalCount = productCollection.countDocuments(new Document("title", regexQuery));
+        int totalPages = (int) Math.ceil((double) totalCount / pageSize);
+
+        List<ProductEntity> products = productCollection.find(new Document("title", regexQuery))
+                .skip(skip)
+                .limit(pageSize)
+                .into(new ArrayList<>());
+
+        return new FilteredProductResponse<>(products, totalPages);
     }
 }

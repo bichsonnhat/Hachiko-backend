@@ -5,6 +5,7 @@ import java.util.List;
 import org.bson.Document;
 import org.springframework.stereotype.Repository;
 
+import com.mongodb.starter.dtos.FilteredProductResponse;
 import com.mongodb.starter.entity.ProductEntity;
 
 @Repository
@@ -25,4 +26,6 @@ public interface ProductRepository {
     List<Document> findAllGroupedByCategoryAggregation();
 
     List<ProductEntity> findAllByProductIds(List<String> productIds);
+
+    FilteredProductResponse<ProductEntity> filterProduct(String search, Integer page);
 }

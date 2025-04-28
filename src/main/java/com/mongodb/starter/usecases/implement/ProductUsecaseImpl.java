@@ -5,7 +5,9 @@ import java.util.List;
 import org.bson.Document;
 import org.springframework.stereotype.Service;
 
+import com.mongodb.starter.dtos.FilteredProductResponse;
 import com.mongodb.starter.dtos.ProductDTO;
+import com.mongodb.starter.entity.ProductEntity;
 import com.mongodb.starter.repositories.interfaces.ProductRepository;
 import com.mongodb.starter.usecases.interfaces.ProductUsecase;
 
@@ -52,4 +54,16 @@ public class ProductUsecaseImpl implements ProductUsecase {
     public List<Document> getAllGroupedByCategoryAggregation() {
         return productRepository.findAllGroupedByCategoryAggregation();
     }
+
+    @Override
+    public FilteredProductResponse<ProductDTO> filterProduct(String search, Integer page) {
+        FilteredProductResponse<ProductEntity> response = productRepository.filterProduct(search, page);
+
+        List<ProductDTO> dtoList = response.getItems().stream()
+            .map(ProductDTO::new)
+            .toList();
+
+    return new FilteredProductResponse<>(dtoList, response.getTotalPages());
+}
+
 }
