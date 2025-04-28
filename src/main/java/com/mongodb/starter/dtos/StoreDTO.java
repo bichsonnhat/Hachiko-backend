@@ -17,7 +17,7 @@ public record StoreDTO(
                 storeEntity.getName(),
                 storeEntity.getAddress(),
                 storeEntity.getImageURL(),
-                storeEntity.getLongtitude(),
+                storeEntity.getLongitude(),
                 storeEntity.getLatitude()
         );
     }

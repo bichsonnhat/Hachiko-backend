@@ -15,12 +15,12 @@ public class StoreEntity {
     public StoreEntity() {
     }
 
-    public StoreEntity(ObjectId  id, String name, String address, String imageURL, double longtitude, double latitude) {
+    public StoreEntity(ObjectId  id, String name, String address, String imageURL, double longitude, double latitude) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.imageURL = imageURL;
-        this.longitude  = longtitude;
+        this.longitude  = longitude;
         this.latitude = latitude;
     }
 
@@ -32,7 +32,7 @@ public class StoreEntity {
         return latitude;
     }
 
-    public double getLongtitude() {
+    public double getLongitude() {
         return longitude ;
     }
 
@@ -79,7 +79,7 @@ public class StoreEntity {
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", imageURL='" + imageURL + '\'' +
-                ", longtitude=" + longitude  +
+                ", longitude=" + longitude  +
                 ", latitude=" + latitude +
                 '}';
     }
