@@ -7,12 +7,14 @@ import org.bson.types.ObjectId;
 public class AdvertisementEntity {
     private ObjectId id;
     private String description;
+    private String imageUrl;
 
     public AdvertisementEntity() {}
 
-    public AdvertisementEntity(ObjectId id, String description){
+    public AdvertisementEntity(ObjectId id, String description, String imageUrl) {
         this.id = id;
         this.description = description;
+        this.imageUrl = imageUrl;
     }
 
     public ObjectId getId() {
@@ -21,6 +23,10 @@ public class AdvertisementEntity {
 
     public String getDescription() {
         return this.description;
+    }
+
+    public String getImageUrl() {
+        return this.imageUrl;
     }
 
     public AdvertisementEntity setId(ObjectId id) {
@@ -33,11 +39,17 @@ public class AdvertisementEntity {
         return this;
     }
 
+    public AdvertisementEntity setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "AdvertismentEntity{" +
                 "id=" + id +
                 ", description='" + description + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
                 '}';
     }
 
