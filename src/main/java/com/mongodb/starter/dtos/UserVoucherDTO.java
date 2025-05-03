@@ -15,7 +15,7 @@ public record UserVoucherDTO(
     public UserVoucherDTO(UserVoucher userVoucher) {
         this(
             userVoucher.getId() == null ? null : userVoucher.getId().toHexString(),
-            userVoucher.getUserId() == null ? null : userVoucher.getUserId().toHexString(),
+            userVoucher.getUserId(),
             userVoucher.getVoucherId() == null ? null : userVoucher.getVoucherId().toHexString(),
             userVoucher.getCreatedAt(),
             userVoucher.getUpdatedAt(),
@@ -26,7 +26,7 @@ public record UserVoucherDTO(
     public UserVoucher toUserVoucher() {
         return new UserVoucher(
             id == null ? null : new org.bson.types.ObjectId(id),
-            userId == null ? null : new org.bson.types.ObjectId(userId),
+            userId,
             voucherId == null ? null : new org.bson.types.ObjectId(voucherId),
             createdAt,
             updatedAt,

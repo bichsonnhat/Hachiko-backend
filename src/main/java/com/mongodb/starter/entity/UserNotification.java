@@ -3,24 +3,24 @@ package com.mongodb.starter.entity;
 import java.util.Date;
 import org.bson.types.ObjectId;
 
-public class UserVoucher {
+public class UserNotification {
     private ObjectId id;
     private String userId;
-    private ObjectId voucherId;
+    private ObjectId notificationId;
+    private Boolean isSeen;
     private Date createdAt;
     private Date updatedAt;
-    private String status;
     
-    public UserVoucher() {
+    public UserNotification() {
     }
 
-    public UserVoucher(ObjectId id, String userId, ObjectId voucherId, Date createdAt, Date updatedAt, String status) {
+    public UserNotification(ObjectId id, String userId, ObjectId notificationId, Boolean isSeen, Date createdAt, Date updatedAt) {
         this.id = id;
         this.userId = userId;
-        this.voucherId = voucherId;
+        this.notificationId = notificationId;
+        this.isSeen = isSeen;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-        this.status = status;
     }
 
     public ObjectId getId() {
@@ -31,8 +31,12 @@ public class UserVoucher {
         return userId;
     }
 
-    public ObjectId getVoucherId() {
-        return voucherId;
+    public ObjectId getNotificationId() {
+        return notificationId;
+    }
+
+    public Boolean getIsSeen() {
+        return isSeen;
     }
 
     public Date getCreatedAt() {
@@ -43,10 +47,6 @@ public class UserVoucher {
         return updatedAt;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
     public void setId(ObjectId id) {
         this.id = id;
     }
@@ -55,8 +55,12 @@ public class UserVoucher {
         this.userId = userId;
     }
 
-    public void setVoucherId(ObjectId voucherId) {
-        this.voucherId = voucherId;
+    public void setNotificationId(ObjectId notificationId) {
+        this.notificationId = notificationId;
+    }
+
+    public void setIsSeen(Boolean isSeen) {
+        this.isSeen = isSeen;
     }
 
     public void setCreatedAt(Date createdAt) {
@@ -66,9 +70,4 @@ public class UserVoucher {
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-}
-
+} 

@@ -49,7 +49,7 @@ public class MongoDBUserVoucherRepository implements UserVoucherRepository {
 
     @Override
     public List<UserVoucher> findByUserId(String userId) {
-        return userVoucherCollection.find(Filters.eq("userId", new ObjectId(userId)))
+        return userVoucherCollection.find(Filters.eq("userId", userId))
                 .into(new java.util.ArrayList<>());
     }
 
