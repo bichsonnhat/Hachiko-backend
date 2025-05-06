@@ -22,4 +22,6 @@ public interface UserNotificationUsecase {
     UserNotificationDTO updateUserNotification(String id, UserNotificationDTO userNotificationDTO);
     
     void deleteUserNotification(String id);
+    
+    Long countUnseenNotificationsByUserId(String userId);
 } 

@@ -91,4 +91,9 @@ public class MongoDBUserNotificationRepository implements UserNotificationReposi
     public void deleteById(String id) {
         userNotificationCollection.deleteOne(Filters.eq("_id", new ObjectId(id)));
     }
+
+    @Override
+    public Long countByUserIdAndIsSeen(String userId, Boolean isSeen) {
+        return userNotificationCollection.countDocuments(Filters.and(Filters.eq("userId", userId), Filters.eq("isSeen", isSeen)));
+    }
 } 

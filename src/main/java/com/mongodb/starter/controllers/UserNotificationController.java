@@ -69,6 +69,15 @@ public class UserNotificationController {
     public List<UserNotificationDTO> getUserNotificationsByUserId(@PathVariable String userId) {
         return userNotificationUsecase.getUserNotificationsByUserId(userId);
     }
+    
+    @Operation(summary = "Get count of unseen notifications by user ID", description = "Retrieves the count of unseen notifications for a specific user", security = {
+            @SecurityRequirement(name = "api_key") })
+    @ApiResponse(responseCode = "200", description = "Successfully retrieved unseen notification count")
+    @GetMapping("/user/{userId}/unseen-count")
+    @ResponseStatus(HttpStatus.OK)
+    public Long getUnseenNotificationsCountByUserId(@PathVariable String userId) {
+        return userNotificationUsecase.countUnseenNotificationsByUserId(userId);
+    }
 
     @Operation(summary = "Get user notifications by notification ID", description = "Retrieves all users who have a specific notification", security = {
             @SecurityRequirement(name = "api_key") })

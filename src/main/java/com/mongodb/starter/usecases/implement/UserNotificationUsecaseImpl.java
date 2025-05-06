@@ -72,4 +72,9 @@ public class UserNotificationUsecaseImpl implements UserNotificationUsecase {
     public void deleteUserNotification(String id) {
         userNotificationRepository.deleteById(id);
     }
+    
+    @Override
+    public Long countUnseenNotificationsByUserId(String userId) {
+        return userNotificationRepository.countByUserIdAndIsSeen(userId, false);
+    }
 } 
