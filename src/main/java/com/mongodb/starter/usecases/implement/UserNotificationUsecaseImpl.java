@@ -77,4 +77,15 @@ public class UserNotificationUsecaseImpl implements UserNotificationUsecase {
     public Long countUnseenNotificationsByUserId(String userId) {
         return userNotificationRepository.countByUserIdAndIsSeen(userId, false);
     }
+
+    @Override
+    public UserNotificationDTO markNotificationAsSeen(String id) {
+        UserNotification userNotification = userNotificationRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Notification not found"));
+
+        userNotification.setIsSeen(true); 
+
+        UserNotification updated = userNotificationRepository.update(userNotification); 
+        return new UserNotificationDTO(updated); 
+    }
 } 

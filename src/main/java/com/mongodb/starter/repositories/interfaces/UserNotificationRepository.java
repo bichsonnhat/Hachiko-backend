@@ -24,4 +24,5 @@ public interface UserNotificationRepository {
     void deleteById(String id);
     
     Long countByUserIdAndIsSeen(String userId, Boolean isSeen);
+
 } 

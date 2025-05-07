@@ -130,4 +130,21 @@ public class UserNotificationController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @Operation(summary = "Mark user notification as seen", description = "Marks a specific user notification as seen", security = {
+            @SecurityRequirement(name = "api_key") })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully marked as seen"),
+            @ApiResponse(responseCode = "404", description = "User notification not found")
+    })
+    @PutMapping("/{id}/seen")
+    public ResponseEntity<UserNotificationDTO> markAsSeen(@PathVariable String id) {
+        try {
+            UserNotificationDTO updated = userNotificationUsecase.markNotificationAsSeen(id);
+            return ResponseEntity.ok(updated);
+        } catch (IllegalArgumentException e) {
+            LOGGER.error("Error marking notification as seen: {}", e.getMessage());
+            return ResponseEntity.notFound().build();
+        }
+    }
 } 

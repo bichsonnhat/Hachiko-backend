@@ -24,4 +24,6 @@ public interface UserNotificationUsecase {
     void deleteUserNotification(String id);
     
     Long countUnseenNotificationsByUserId(String userId);
+
+    UserNotificationDTO markNotificationAsSeen(String id);
 } 
