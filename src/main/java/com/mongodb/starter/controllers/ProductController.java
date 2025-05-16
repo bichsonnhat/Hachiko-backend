@@ -37,25 +37,26 @@ public class ProductController {
     }
 
     @Operation(summary = "Get all products",
-               description = "Retrieves a list of all products in the system",
-               security = { @SecurityRequirement(name = "api_key") }
-               )
+           description = "Retrieves a list of all products in the system",
+           security = { @SecurityRequirement(name = "api_key") }
+    )
     @ApiResponse(responseCode = "200", description = "Successfully retrieved all products")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public Object getProducts(
             @RequestParam(value = "category_id", required = false) String categoryId,
             @RequestParam(value = "search", required = false) String search,
-            @RequestParam(value = "page", required = false, defaultValue = "1") Integer page) {
-            if (categoryId != null && !categoryId.isEmpty()) {
-                return productUsecase.getProductsByCategory(categoryId);
-            }
-        
-            if (search != null && !search.isEmpty()) {
-                return productUsecase.filterProduct(search, page);
-            }
-        
-            return productUsecase.getAllProducts();
+            @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+            @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
+        if (categoryId != null && !categoryId.isEmpty()) {
+            return productUsecase.getProductsByCategory(categoryId);
+        }
+
+        if (search != null && !search.isEmpty()) {
+            return productUsecase.filterProduct(search, page);
+        }
+
+        return productUsecase.getAllProducts(page, pageSize);
     }
 
 

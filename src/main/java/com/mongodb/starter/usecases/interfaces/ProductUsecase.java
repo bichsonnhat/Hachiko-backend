@@ -10,7 +10,7 @@ import com.mongodb.starter.dtos.ProductDTO;
 public interface ProductUsecase  {
     ProductDTO createProduct(ProductDTO productEntity);
     
-    List<ProductDTO> getAllProducts();
+    List<ProductDTO> getAllProducts(int page, int pageSize);
     
     ProductDTO getProduct(String id);
     

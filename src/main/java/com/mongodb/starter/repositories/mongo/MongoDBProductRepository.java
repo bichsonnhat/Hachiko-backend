@@ -47,10 +47,13 @@ public class MongoDBProductRepository implements ProductRepository {
         return productEntity;
     }
 
-    @Override
-    public List<ProductEntity> findAll() {
-        return productCollection.find().into(new ArrayList<>());
-    }
+    public List<ProductEntity> findAll(int page, int pageSize) {
+    int skip = (page - 1) * pageSize;
+    return productCollection.find()
+            .skip(skip)
+            .limit(pageSize)
+            .into(new ArrayList<>());
+}
 
     @Override
     public ProductEntity findOne(String id) {

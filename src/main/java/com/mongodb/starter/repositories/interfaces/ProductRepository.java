@@ -15,7 +15,7 @@ public interface ProductRepository {
 
     void deleteOne(String id);
 
-    List<ProductEntity> findAll();
+    List<ProductEntity> findAll(int page, int pageSize);
 
     ProductEntity findOne(String id);
 

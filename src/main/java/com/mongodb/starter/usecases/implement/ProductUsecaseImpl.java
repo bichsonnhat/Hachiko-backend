@@ -26,8 +26,8 @@ public class ProductUsecaseImpl implements ProductUsecase {
     }
 
     @Override
-    public List<ProductDTO> getAllProducts() {
-        return productRepository.findAll().stream().map(ProductDTO::new).toList();
+    public List<ProductDTO> getAllProducts(int page, int pageSize) {
+        return productRepository.findAll(page, pageSize).stream().map(ProductDTO::new).toList();
     }
 
     @Override
