@@ -14,7 +14,7 @@ public record FeedbackOrderDTO(
 
     public FeedbackOrderDTO(FeedbackOrderEntity feedbackOrderEntity) {
         this(feedbackOrderEntity.getId() == null ? null : feedbackOrderEntity.getId().toHexString(),
-                feedbackOrderEntity.getUserId() == null ? null : feedbackOrderEntity.getUserId().toHexString(),
+                feedbackOrderEntity.getUserId(),
                 feedbackOrderEntity.getUsername(),
                 feedbackOrderEntity.getOrderId() == null ? null : feedbackOrderEntity.getOrderId().toHexString(),
                 feedbackOrderEntity.getFeedbackContent(),
@@ -24,7 +24,7 @@ public record FeedbackOrderDTO(
     public FeedbackOrderEntity toFeedbackOrderEntity() {
         return new FeedbackOrderEntity(
                 id == null ? null : new ObjectId(id),
-                userId == null ? null : new ObjectId(userId),
+                userId,
                 username,
                 orderId == null ? null : new ObjectId(orderId),
                 feedbackContent,

@@ -7,7 +7,7 @@ import org.bson.types.ObjectId;
 
 public class OrderEntity {
     private ObjectId id;
-    private ObjectId userId;
+    private String userId;
     private String orderAddress;
     private Date orderTime;
     private String paymentMethod;
@@ -22,7 +22,7 @@ public class OrderEntity {
     public OrderEntity() {
     }
 
-    public OrderEntity(ObjectId id, ObjectId userId, String orderAddress, Date orderTime, String paymentMethod,
+    public OrderEntity(ObjectId id, String userId, String orderAddress, Date orderTime, String paymentMethod,
             Double orderCost, ObjectId voucherId, String recipientName, String recipientPhone, ObjectId storeId,
             String orderStatus, Date createdAt) {
         this.id = id;
@@ -47,11 +47,11 @@ public class OrderEntity {
         this.id = id;
     }
 
-    public ObjectId getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(ObjectId userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

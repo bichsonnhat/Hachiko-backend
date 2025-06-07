@@ -13,7 +13,7 @@ public record FeedbackDTO(
     public FeedbackDTO(FeedbackEntity feedbackEntity) {
         this(
                 feedbackEntity.getId() == null ? null : feedbackEntity.getId().toHexString(),
-                feedbackEntity.getUserId() == null ? null : feedbackEntity.getUserId().toHexString(),
+                feedbackEntity.getUserId(),
                 feedbackEntity.getUsername(),
                 feedbackEntity.getFeedbackContent());
     }
@@ -21,7 +21,7 @@ public record FeedbackDTO(
     public FeedbackEntity toFeedbackEntity() {
         return new FeedbackEntity(
                 id == null ? null : new ObjectId(id),
-                userId == null ? null : new ObjectId(userId),
+                userId,
                 username,
                 feedbackContent);
     }

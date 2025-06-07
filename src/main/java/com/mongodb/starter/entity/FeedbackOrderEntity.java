@@ -4,7 +4,7 @@ import org.bson.types.ObjectId;
 
 public class FeedbackOrderEntity {
     private ObjectId id;
-    private ObjectId userId;
+    private String userId;
     private String username;
     private ObjectId orderId;
     private String feedbackContent;
@@ -13,7 +13,7 @@ public class FeedbackOrderEntity {
     public FeedbackOrderEntity() {
     }
 
-    public FeedbackOrderEntity(ObjectId id, ObjectId userId, String username, ObjectId orderId, String feedbackContent,
+    public FeedbackOrderEntity(ObjectId id, String userId, String username, ObjectId orderId, String feedbackContent,
             int rating) {
         this.id = id;
         this.userId = userId;
@@ -31,11 +31,11 @@ public class FeedbackOrderEntity {
         this.id = id;
     }
 
-    public ObjectId getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(ObjectId userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

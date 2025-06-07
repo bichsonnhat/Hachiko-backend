@@ -21,7 +21,7 @@ public record OrderDTO(
         Date createdAt) {
     public OrderDTO(OrderEntity orderEntity) {
         this(orderEntity.getId() == null ? null : orderEntity.getId().toHexString(),
-                orderEntity.getUserId() == null ? null : orderEntity.getUserId().toHexString(),
+                orderEntity.getUserId(),
                 orderEntity.getOrderAddress(), orderEntity.getOrderTime(), orderEntity.getPaymentMethod(),
                 orderEntity.getOrderCost(),
                 orderEntity.getVoucherId() == null ? null : orderEntity.getVoucherId().toHexString(),
@@ -32,7 +32,7 @@ public record OrderDTO(
 
     public OrderEntity toOrderEntity() {
         return new OrderEntity(id == null ? null : new ObjectId(id),
-                userId == null ? null : new ObjectId(userId), orderAddress, orderTime, paymentMethod,
+                userId, orderAddress, orderTime, paymentMethod,
                 orderCost, voucherId == null ? null : new ObjectId(voucherId), recipientName,
                 recipientPhone, storeId == null ? null : new ObjectId(storeId), orderStatus, createdAt);
     }

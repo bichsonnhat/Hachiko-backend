@@ -4,7 +4,7 @@ import org.bson.types.ObjectId;
 
 public class FavouriteProductEntity {
     private ObjectId id;
-    private ObjectId userId;
+    private String userId;
     private ObjectId productId;
 
     public ObjectId getId() {
@@ -15,11 +15,11 @@ public class FavouriteProductEntity {
         this.id = id;
     }
 
-    public ObjectId getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(ObjectId userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -31,7 +31,7 @@ public class FavouriteProductEntity {
         this.productId = productId;
     }
 
-    public FavouriteProductEntity(ObjectId id, ObjectId userId, ObjectId productId) {
+    public FavouriteProductEntity(ObjectId id, String userId, ObjectId productId) {
         this.id = id;
         this.userId = userId;
         this.productId = productId;

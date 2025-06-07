@@ -10,7 +10,7 @@ public record FavouriteProductDTO(
         String productId) {
     public FavouriteProductDTO(FavouriteProductEntity favouriteProductEntity) {
         this(favouriteProductEntity.getId() == null ? null : favouriteProductEntity.getId().toHexString(),
-                favouriteProductEntity.getUserId() == null ? null : favouriteProductEntity.getUserId().toHexString(),
+                favouriteProductEntity.getUserId(),
                 favouriteProductEntity.getProductId() == null ? null
                         : favouriteProductEntity.getProductId().toHexString());
     }
@@ -18,7 +18,7 @@ public record FavouriteProductDTO(
     public FavouriteProductEntity toFavouriteProductEntity() {
         return new FavouriteProductEntity(
                 id == null ? null : new ObjectId(id),
-                userId == null ? null : new ObjectId(userId),
+                userId,
                 productId == null ? null : new ObjectId(productId));
     }
 }
