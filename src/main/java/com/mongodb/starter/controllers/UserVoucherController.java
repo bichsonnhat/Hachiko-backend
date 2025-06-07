@@ -69,6 +69,15 @@ public class UserVoucherController {
     public List<UserVoucherDTO> getUserVouchersByUserId(@PathVariable String userId) {
         return userVoucherUsecase.getUserVouchersByUserId(userId);
     }
+    
+    @Operation(summary = "Get available user vouchers by user ID", description = "Retrieves all available vouchers for a specific user (non-expired and with ACTIVE status)", security = {
+            @SecurityRequirement(name = "api_key") })
+    @ApiResponse(responseCode = "200", description = "Successfully retrieved available user vouchers")
+    @GetMapping("/user/{userId}/available")
+    @ResponseStatus(HttpStatus.OK)
+    public List<UserVoucherDTO> getAvailableVouchersByUserId(@PathVariable String userId) {
+        return userVoucherUsecase.getAvailableVouchersByUserId(userId);
+    }
 
     @Operation(summary = "Get user vouchers by voucher ID", description = "Retrieves all users who have a specific voucher", security = {
             @SecurityRequirement(name = "api_key") })

@@ -54,6 +54,16 @@ public class MongoDBUserVoucherRepository implements UserVoucherRepository {
     }
 
     @Override
+    public List<UserVoucher> findAvailableByUserId(String userId) {
+        return userVoucherCollection.find(
+                Filters.and(
+                    Filters.eq("userId", userId),
+                    Filters.eq("status", "ACTIVE")
+                ))
+                .into(new java.util.ArrayList<>());
+    }
+
+    @Override
     public List<UserVoucher> findByVoucherId(String voucherId) {
         return userVoucherCollection.find(Filters.eq("voucherId", new ObjectId(voucherId)))
                 .into(new java.util.ArrayList<>());

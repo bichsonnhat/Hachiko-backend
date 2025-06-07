@@ -16,6 +16,8 @@ public interface UserVoucherRepository {
     
     List<UserVoucher> findByUserId(String userId);
     
+    List<UserVoucher> findAvailableByUserId(String userId);
+    
     List<UserVoucher> findByVoucherId(String voucherId);
     
     UserVoucher save(UserVoucher userVoucher);

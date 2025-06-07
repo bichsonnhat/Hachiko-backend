@@ -1,5 +1,7 @@
 package com.mongodb.starter.usecases.implement;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -8,16 +10,20 @@ import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
 import com.mongodb.starter.dtos.UserVoucherDTO;
+import com.mongodb.starter.dtos.VoucherDTO;
 import com.mongodb.starter.entity.UserVoucher;
 import com.mongodb.starter.repositories.interfaces.UserVoucherRepository;
 import com.mongodb.starter.usecases.interfaces.UserVoucherUsecase;
+import com.mongodb.starter.usecases.interfaces.VoucherUsecase;
 
 @Service
 public class UserVoucherUsecaseImpl implements UserVoucherUsecase {
     private final UserVoucherRepository userVoucherRepository;
+    private final VoucherUsecase voucherUsecase;
 
-    public UserVoucherUsecaseImpl(UserVoucherRepository userVoucherRepository) {
+    public UserVoucherUsecaseImpl(UserVoucherRepository userVoucherRepository, VoucherUsecase voucherUsecase) {
         this.userVoucherRepository = userVoucherRepository;
+        this.voucherUsecase = voucherUsecase;
     }
 
     @Override
@@ -38,6 +44,30 @@ public class UserVoucherUsecaseImpl implements UserVoucherUsecase {
         return userVoucherRepository.findByUserId(userId).stream()
                 .map(UserVoucherDTO::new)
                 .collect(Collectors.toList());
+    }
+    
+    @Override
+    public List<UserVoucherDTO> getAvailableVouchersByUserId(String userId) {
+        // Get active user vouchers
+        List<UserVoucher> activeUserVouchers = userVoucherRepository.findAvailableByUserId(userId);
+        List<UserVoucherDTO> availableVouchers = new ArrayList<>();
+        Date currentDate = new Date();
+        
+        // Check each voucher's expiry date
+        for (UserVoucher userVoucher : activeUserVouchers) {
+            String voucherId = userVoucher.getVoucherId().toHexString();
+            Optional<VoucherDTO> voucherOpt = voucherUsecase.getVoucherById(voucherId);
+            
+            if (voucherOpt.isPresent()) {
+                VoucherDTO voucher = voucherOpt.get();
+                // Only include if not expired
+                if (voucher.expiryDate() == null || voucher.expiryDate().after(currentDate)) {
+                    availableVouchers.add(new UserVoucherDTO(userVoucher));
+                }
+            }
+        }
+        
+        return availableVouchers;
     }
 
     @Override

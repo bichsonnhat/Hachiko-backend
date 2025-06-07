@@ -7,7 +7,6 @@ import org.bson.types.ObjectId;
 
 public class VoucherEntity {
     private ObjectId id;
-    private ObjectId userId;
     private String title;
     private String description;
     private String imgUrl;
@@ -22,9 +21,8 @@ public class VoucherEntity {
     public VoucherEntity() {
     }
 
-    public VoucherEntity(ObjectId id, ObjectId userId, String title, String description, String imgUrl, int discountPrice, double discountPercent, boolean isFreeShip, int minOrderPrice, int minOrderItem, String type, Date expiryDate) {
+    public VoucherEntity(ObjectId id, String title, String description, String imgUrl, int discountPrice, double discountPercent, boolean isFreeShip, int minOrderPrice, int minOrderItem, String type, Date expiryDate) {
         this.id = id;
-        this.userId = userId;
         this.title = title;
         this.description = description;
         this.imgUrl = imgUrl;
@@ -39,10 +37,6 @@ public class VoucherEntity {
 
     public ObjectId getId() {
         return id;
-    }
-
-    public ObjectId getUserId() {
-        return userId;
     }
 
     public String getTitle() {
@@ -89,10 +83,6 @@ public class VoucherEntity {
         this.id = id;
     }
 
-    public void setUserId(ObjectId userId) {
-        this.userId = userId;
-    }
-
     public void setTitle(String title) {
         this.title = title;
     }
@@ -137,7 +127,6 @@ public class VoucherEntity {
     public String toString() {
         return "VoucherEntity{" +
                 "id=" + id +
-                ", userId=" + userId +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", imgUrl='" + imgUrl + '\'' +
@@ -157,7 +146,6 @@ public class VoucherEntity {
         if (o == null || getClass() != o.getClass()) return false;
         VoucherEntity that = (VoucherEntity) o;
         return Objects.equals(id, that.id) &&
-                Objects.equals(userId, that.userId) &&
                 Objects.equals(title, that.title) &&
                 Objects.equals(description, that.description) &&
                 Objects.equals(imgUrl, that.imgUrl) &&
@@ -172,6 +160,6 @@ public class VoucherEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userId, title, description, imgUrl, discountPrice, discountPercent, isFreeShip, minOrderPrice, minOrderItem, type, expiryDate);
+        return Objects.hash(id, title, description, imgUrl, discountPrice, discountPercent, isFreeShip, minOrderPrice, minOrderItem, type, expiryDate);
     }
 }

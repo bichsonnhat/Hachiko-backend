@@ -15,6 +15,8 @@ public interface UserVoucherUsecase {
     
     List<UserVoucherDTO> getUserVouchersByUserId(String userId);
     
+    List<UserVoucherDTO> getAvailableVouchersByUserId(String userId);
+    
     List<UserVoucherDTO> getUserVouchersByVoucherId(String voucherId);
     
     UserVoucherDTO createUserVoucher(UserVoucherDTO userVoucherDTO);
