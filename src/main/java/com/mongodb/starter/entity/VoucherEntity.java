@@ -103,9 +103,6 @@ public class VoucherEntity {
         this.discountPercent = discountPercent;
     }
 
-    public void setIsFreeShip(boolean isFreeShip) {
-        this.isFreeShip = isFreeShip;
-    }
 
     public void setMinOrderPrice(int minOrderPrice) {
         this.minOrderPrice = minOrderPrice;
@@ -121,6 +118,10 @@ public class VoucherEntity {
 
     public void setExpiryDate(Date expiryDate) {
         this.expiryDate = expiryDate;
+    }
+
+    public void setFreeShip(boolean isFreeShip) {
+        this.isFreeShip = isFreeShip;
     }
 
     @Override
