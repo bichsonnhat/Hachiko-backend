@@ -39,8 +39,7 @@ public class MongoDBFavouriteProductRepository implements FavouriteProductReposi
 
     @Override
     public List<FavouriteProductEntity> getFavouriteProductsByUserId(String userId) {
-        return favouriteProductCollection.find(eq("userId", new ObjectId(
-                userId))).into(new java.util.ArrayList<>());
+        return favouriteProductCollection.find(eq("userId", userId)).into(new java.util.ArrayList<>());
     }
 
     @Override
@@ -50,8 +49,8 @@ public class MongoDBFavouriteProductRepository implements FavouriteProductReposi
 
     @Override
     public boolean checkIfProductIsInFavouriteProductList(String userId, String productId) {
-        return favouriteProductCollection.find(eq("userId", new ObjectId(userId)))
-                .filter(eq("productId", new ObjectId(productId))).first() != null;
+        return favouriteProductCollection.find(eq("userId", userId))
+                .filter(eq("productId", productId)).first() != null;
     }
 
 }
