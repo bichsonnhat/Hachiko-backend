@@ -79,6 +79,10 @@ public class VoucherEntity {
         return expiryDate;
     }
 
+    public boolean getIsFreeShip() {
+        return isFreeShip;
+    }
+
     public void setId(ObjectId id) {
         this.id = id;
     }
