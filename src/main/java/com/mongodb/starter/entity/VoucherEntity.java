@@ -120,7 +120,7 @@ public class VoucherEntity {
         this.expiryDate = expiryDate;
     }
 
-    public void setFreeShip(boolean isFreeShip) {
+    public void setIsFreeShip(boolean isFreeShip) {
         this.isFreeShip = isFreeShip;
     }
 
