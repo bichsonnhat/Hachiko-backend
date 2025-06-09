@@ -2,6 +2,7 @@ package com.mongodb.starter.entity;
 
 import java.util.Date;
 import java.util.Objects;
+import org.bson.codecs.pojo.annotations.BsonProperty;
 
 public class UserEntity {
     private String id;
@@ -11,6 +12,7 @@ public class UserEntity {
     private String email;
     private String phoneNumber;
     private String gender;
+    @BsonProperty("admin")
     private boolean isAdmin;
 
     public UserEntity() {

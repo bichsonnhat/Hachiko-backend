@@ -21,7 +21,10 @@ public class MongoDBConfiguration {
 
     @Bean
     public MongoClient mongoClient() {
-        CodecRegistry pojoCodecRegistry = fromProviders(PojoCodecProvider.builder().automatic(true).build());
+        CodecRegistry pojoCodecRegistry = fromProviders(PojoCodecProvider.builder()
+                                                      .automatic(true)
+                                                      .conventions(org.bson.codecs.pojo.Conventions.DEFAULT_CONVENTIONS)
+                                                      .build());
         CodecRegistry codecRegistry = fromRegistries(MongoClientSettings.getDefaultCodecRegistry(), pojoCodecRegistry);
         return MongoClients.create(MongoClientSettings.builder()
                                                       .applyConnectionString(new ConnectionString(connectionString))
