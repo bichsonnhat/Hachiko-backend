@@ -25,6 +25,8 @@
     <mongodb.version>5.0.1</mongodb.version>
     <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
     <springdoc-openapi-starter-webmvc-ui.version>2.5.0</springdoc-openapi-starter-webmvc-ui.version>
+    <casbin.version>1.32.0</casbin.version>
+    <jjwt.version>0.11.5</jjwt.version>
   </properties>
 
   <dependencies>
@@ -51,6 +53,30 @@
       <groupId>vn.payos</groupId>
       <artifactId>payos-java</artifactId>
       <version>1.0.1</version>
+    </dependency>
+    <!-- Casbin core dependency - we use direct implementation rather than the spring-boot-starter -->
+    <dependency>
+      <groupId>org.casbin</groupId>
+      <artifactId>jcasbin</artifactId>
+      <version>${casbin.version}</version>
+    </dependency>
+    <!-- JWT dependencies -->
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt-api</artifactId>
+      <version>${jjwt.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt-impl</artifactId>
+      <version>${jjwt.version}</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt-jackson</artifactId>
+      <version>${jjwt.version}</version>
+      <scope>runtime</scope>
     </dependency>
   </dependencies>
 
