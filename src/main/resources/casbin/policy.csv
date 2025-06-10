@@ -1,0 +1,16 @@
+p, admin, *, *
+p, user, /products, GET
+p, user, /products/*, GET
+p, user, /categories, GET
+p, user, /categories/*, GET
+p, user, /orders, *
+p, user, /store, GET
+p, user, /reviews, *
+p, user, /notifications, GET
+p, user, /advertisements, GET
+p, user, /feedback/regular, POST
+p, user, /feedback/order, POST
+p, user, /favourite-products, *
+p, user, /user-vouchers, GET
+p, user, /users, GET
+
